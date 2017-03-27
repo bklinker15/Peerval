@@ -3,17 +3,75 @@
 <head>
     <title>Peerval</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script>
+        function validate() {
+            window.location.href = "localhost:3000/users";
+
+//            var http = require('http');
+//
+//            var options = {
+//                host: 'localhost',
+//                port: '3000',
+//                path: '/signup/signupUser',
+//                method: 'POST',
+//                headers: {
+//                    'Content-Type': 'application/x-www-form-urlencoded',
+//                    'Content-Length': post_data.length
+//                }
+//            };
+//
+//            var req = http.request(options, function (res) {
+//                // response is here
+//                if (res.responseText.trim().length > 0) {
+//                    //if there was an error, display error message in error div
+//                    document.getElementById("error-message").innerHTML = res.responseText;
+//                    return false;
+//                } else {
+//                    //otherwise redirect to user home page
+//                    window.location.href = path + "/home";
+//                }
+//            });
+//            return false;
+        }
+
+    </script>
 </head>
 <body>
 <h1>Signup</h1>
 <p>Please sign up</p>
-<form name>
-    First Name: <input> <br />
-    Last Name: <input> <br />
-    Username: <input> <br />
-    Password: <input> <br />
-    Confirm Password: <input> <br /> <br />
-    Would you like to apply to be a reviewer? <input> <br />
+<form name="signup-form" action="/signup/signupUser" method="POST">
+    First Name: <input name="fname" type="text" class="signupField"> <br />
+    Last Name: <input name="lname" type="text" class="signupField"> <br />
+    Username: <input name="username" type="text" class="signupField"> <br />
+    Password: <input name="password" type="text" class="signupField"> <br />
+    Confirm Password: <input name="confirm-password" type="password" class="signupField"> <br />
+    University: <select name="university" type="select"> <br>
+        <option value="USC">USC</option>
+        <option value="UCLA">UCLA</option>
+        <option value="LMU">LMU</option>
+        <option value="CSUN">CSUN</option>
+    </select>
+    Major: <select name="major">
+        <option value="engineering">Engineering</option>
+        <option value="social-sciences">Social Sciences</option>
+        <option value="business">Business</option>
+        <option value="physical-sciences">Physical Sciences</option>
+        <option value="music">Music</option>
+        <option value="art">Art</option>
+        <option value="cinematic-arts">Cinematic Arts</option>
+    </select><br />
+    Class Year: <select name="year"> <br />
+        <option value="Freshman">Freshman</option>
+        <option value="Sophomore">Sophomore</option>
+        <option value="Junior">Junior</option>
+        <option value="Senior">Senior</option>
+    </select> <br>
+    Email: <input name="email" type="text" class="signupField"> <br />
+    Phone number: <input name="phone" type="text" class="signupField"> <br /> <br />
+
+    <input type="checkbox" name="type" value="reviewer" checked="checked"> I would like to be considered to be a reviewer<br> <br />
+    <input type="submit" value="Sign Up" onclick="validate();">
+    <div id="error-message"></div>
 </form>
 </body>
 </html>
