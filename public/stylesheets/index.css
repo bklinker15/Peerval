@@ -1,0 +1,126 @@
+
+#blurb{
+    position: absolute;
+    top: 190px;
+    left: 150px;
+}
+#blurb p{
+    font-size: 30px;
+}
+
+#signup-button{
+    background: #99bce1
+}
+#signup-button:hover{
+    background: #ffffff;
+    text-decoration: none;
+    color: #99bce1;
+}
+
+
+#graphic{
+    position: absolute;
+    top: 80px;
+    right: 20px;
+    left: 20px;
+}
+#plane{
+    z-index: 9;
+    position: absolute;
+    right: 150px;
+    width: 402px;
+    height: 375px;
+}
+
+#sun {
+    z-index: -1;
+    position: fixed;
+    bottom: 60px;
+    right: 400px;
+    width: 250px;
+    height: 250px;
+    background: #fff3a3;
+    -moz-border-radius: 250px;
+    -webkit-border-radius: 250px;
+    border-radius: 250px;
+}
+
+#clouds{
+    position: fixed;
+    bottom: 100px;
+    left: 10px;
+    right: 10px;
+}
+
+.cloud{
+    background: white;
+    position: absolute;
+}
+
+#cloud1{
+    z-index: 5;
+    width: 300px;
+    height: 200px;
+    right: 370px;
+    bottom: -150px;
+    -moz-border-radius: 300px / 200px;
+    -webkit-border-radius: 300px / 200px;
+    border-radius: 300px / 200px;
+}
+
+#cloud2{
+    z-index: 5;
+    width: 300px;
+    height: 300px;
+    right: 530px;
+    bottom: -180px;
+    -moz-border-radius: 300px / 300px;
+    -webkit-border-radius: 300px / 300px;
+    border-radius: 300px / 300px;
+}
+
+#cloud3{
+    z-index: 5;
+    width: 300px;
+    height: 260px;
+    right: 700px;
+    bottom: -150px;
+    -moz-border-radius: 300px / 260px;
+    -webkit-border-radius: 300px / 260px;
+    border-radius: 300px / 260px;
+}
+
+#cloud4{
+    z-index: 5;
+    width: 300px;
+    height: 260px;
+    right: 180px;
+    bottom: -170px;
+    -moz-border-radius: 300px / 260px;
+    -webkit-border-radius: 300px / 260px;
+    border-radius: 300px / 260px;
+}
+
+#cloud5 {
+    z-index: 5;
+    bottom: 60px;
+    right: 130px;
+    width: 180px;
+    height: 180px;
+    bottom: -170px;
+    -moz-border-radius: 180px;
+    -webkit-border-radius: 180px;
+    border-radius: 180px;
+}
+
+#cloud6 {
+    z-index: 5;
+    bottom: 60px;
+    right: 920px;
+    width: 180px;
+    height: 180px;
+    bottom: -170px;
+    -moz-border-radius: 180px;
+    -webkit-border-radius: 180px;
+    border-radius: 180px;
+}

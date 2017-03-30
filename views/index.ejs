@@ -1,13 +1,38 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
+    <title>Peerval</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/index.css' />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Quicksand" />
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-    <iframe src="https://docs.google.com/document/d/1y3ZY7nhYbKgjgVyniDAXvvyQjT7SbsZSHA1luYLU3AY/pub?embedded=true&usp=sharing&widget=true"></iframe>
-    <iframe src=”https://docs.google.com/document/d/1y3ZY7nhYbKgjgVyniDAXvvyQjT7SbsZSHA1luYLU3AY/edit?usp=sharing&widget=true”><p>WHAT</p></iframe>
-    <iframe height=”620” align=”middle” width=”100%” border=”0” src=”https://docs.google.com/document/d/1y3ZY7nhYbKgjgVyniDAXvvyQjT7SbsZSHA1luYLU3AY/edit?usp=sharing”></iframe>  </body>
+  <nav id="header-bar">
+    <a href="/" id="brand">peerval</a>
+    <a class="link" href="howItWorks">How it Works</a>
+    <a class="link" href="pricing">Pricing</a>
+    <a class="link" href="contact">Contact</a>
+    <a href="login" class="btn" id="login-button">Login</a>
+  </nav>
+
+  <div id="blurb">
+    <p>Writing is hard enough.<br>Getting feedback shouldn't have to be.<br>Get your essay reviewed today!</p><br>
+    <a href=" howItWorks" class="btn" style="margin-right: 10px;">Learn More</a>
+    <a id="signup-button" href="signup" class="btn">Sign Up</a>
+  </div>
+  <div id="graphic">
+    <img id="plane" src="../images/plane.png" alt="Image could not be loaded">
+    <div id="sun"></div>
+    <div id="clouds">
+      <div class="cloud" id="cloud1"></div>
+      <div class="cloud" id="cloud2"></div>
+      <div class="cloud" id="cloud3"></div>
+      <div class="cloud" id="cloud4"></div>
+      <div class="cloud" id="cloud5"></div>
+      <div class="cloud" id="cloud6"></div>
+
+
+    </div>
+  </div>
+  </body>
 </html>

@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
 
 //signup user route
 router.post('/signupUser', function(req, res, next){
-    console.log("username is " + req.body.username);
+    console.log("email is " + req.body.email);
 });
 
 module.exports = router;
