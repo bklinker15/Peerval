@@ -7,7 +7,9 @@ var User = require('../models/user');
 /* GET users listing. */
 //signup
 router.get('/signup', function(req, res, next) {
-  res.render('signup');
+  res.render('signup', {
+      errors : null
+  });
 });
 
 //login
@@ -22,6 +24,10 @@ router.post('/signup', function(req, res, next) {
     var email = req.body.email;
     var password = req.body.password;
     var password2 = req.body.password2;
+    var university = req.body.university;
+    var major = req.body.major;
+    var phone = req.body.phone;
+    var year = req.body.year;
     //TODO add more fields
 
     //validation
@@ -32,6 +38,16 @@ router.post('/signup', function(req, res, next) {
     req.checkBody('password', 'Password is required').notEmpty();
     req.checkBody('password2', 'Confirm password is required').notEmpty();
     req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
+    req.checkBody('university', 'University is required').notEmpty();
+    req.checkBody('major', 'Major is required').notEmpty();
+    req.checkBody('phone', 'Password is required').isInt();
+
+    //sanitize
+    req.sanitize('fname').trim();
+    req.sanitize('lname').trim();
+    req.sanitize('email').trim();
+    req.sanitize('phone').trim();
+
 
     var errors = req.validationErrors();
 

@@ -1,0 +1,13 @@
+<% if(success_msg){%>
+    <div><%=success_msg%></div>
+<%}%>
+<% if(error_msg){%>
+    <div><%=error_msg%></div>
+<%}%>
+<% if(errors){
+    for(var i = 0; i < errors.length; i++){
+        %>
+            <div><%=errors[i].msg%></div>
+        <%
+    }
+}%>

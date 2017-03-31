@@ -1,35 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Peerval</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <link rel='stylesheet' href='/stylesheets/login.css' />
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Quicksand" />
+    <%include ../partials/head%>
 
-
+    <link rel='stylesheet' href='/stylesheets/login-signup.css' />
 </head>
 <body>
-<nav id="header-bar">
-    <a href="/" id="brand">peerval</a>
-    <a class="link" href="howItWorks">How it Works</a>
-    <a class="link" href="pricing">Pricing</a>
-    <a class="link" href="contact">Contact</a>
-    <a href="/users/login" class="btn" id="login-button">Login</a>
-</nav>
+<header>
+    <% include ../partials/navbar%>
+</header>
 
 <div id="middle-box">
-    <% if(success_msg){%>
-        <div><%=success_msg%></div>
-    <%}%>
-    <% if(error_msg){%>
-    <div><%=error_msg%></div>
-    <%}%>
-    <% if(error){%>
-    <div><%=error%></div>
-    <%}%>
     <h1>Log In</h1>
     <p>Please log in</p>
     <div id="inner-box">
+        <div><%include ../partials/messages%></div>
         <form name="login-form" action="/users/login" method="POST">
             Email: <input name="email" type="text" class="field"><br>
             Password: <input name="password" type="password" class="field"><br> <br>

@@ -1,0 +1,11 @@
+<nav id="header-bar">
+    <a href="/" id="brand">peerval</a>
+    <a class="link" href="/howItWorks">How it Works</a>
+    <a class="link" href="/pricing">Pricing</a>
+    <a class="link" href="/contact">Contact</a>
+    <%if (login){%>
+    <a href="/users/logout" class="btn" id="login-button">Logout</a>
+    <%}else{%>
+    <a href="/users/login" class="btn" id="login-button">Login</a>
+    <%}%>
+</nav>
