@@ -14,7 +14,9 @@ router.get('/signup', function(req, res, next) {
 
 //login
 router.get('/login', function(req, res, next) {
-    res.render('login');
+    res.render('login', {
+        errors : null
+    });
 });
 
 //register user
