@@ -9,30 +9,30 @@
 <body>
 <nav id="header-bar">
     <a href="/" id="brand">peerval</a>
-    <a class="link" href="howItWorks.ejs">How it Works</a>
-    <a class="link" href="pricing.ejs">Pricing</a>
-    <a class="link" href="contact.ejs">Contact</a>
-    <a href="login" class="btn" id="login-button">Login</a>
+    <a class="link" href="/howItWorks">How it Works</a>
+    <a class="link" href="/pricing">Pricing</a>
+    <a class="link" href="/contact">Contact</a>
+    <a href="/users/login" class="btn" id="login-button">Login</a>
 </nav>
 
 <div id="middle-box">
     <h1>Signup</h1>
-    <p>Already have an account? <a style="text-decoration: underline;" href="login">Login</a></p>
+    <p>Already have an account? <a style="text-decoration: underline;" href="/users/login">Login</a></p>
     <div id="inner-box">
         <form name="signup-form" action="/users/signup" method="POST">
-            *First Name: <input name="fname" type="text" class="field"> <br />
-            *Last Name: <input name="lname" type="text" class="field"> <br />
-            *Email: <input name="email" type="text" class="field"> <br />
-            *Password: <input name="password" type="password" class="field"> <br />
-            *Confirm Password: <input name="password2" type="password" class="field"> <br />
-            *University: <select name="university" type="select" class="field"> <br>
+            *First Name: <input title="First name" name="fname" type="text" class="field"> <br />
+            *Last Name: <input title="Last name" name="lname" type="text" class="field"> <br />
+            *Email: <input title="Email" name="email" type="text" class="field"> <br />
+            *Password: <input title="Password" name="password" type="password" class="field"> <br />
+            *Confirm Password: <input title="Confirm password" name="password2" type="password" class="field"> <br />
+            *University: <select title="University" name="university" type="select" class="field"> <br>
                 <option value="default" selected="selected"></option>
                 <option value="USC">USC</option>
                 <option value="UCLA">UCLA</option>
                 <option value="LMU">LMU</option>
                 <option value="CSUN">CSUN</option>
             </select><br>
-            *Major: <select name="major" class="field">
+            *Major: <select title="Major" name="major" class="field">
                 <option value="default" selected="selected"></option>
                 <option value="engineering">Engineering</option>
                 <option value="social-sciences">Social Sciences</option>
@@ -42,14 +42,14 @@
                 <option value="art">Art</option>
                 <option value="cinematic-arts">Cinematic Arts</option>
             </select><br />
-            *Class Year: <select name="year" class="field"> <br />
+            *Class Year: <select title="Class year" name="year" class="field"> <br />
                 <option value="default" selected="selected"></option>
                 <option value="Freshman">Freshman</option>
                 <option value="Sophomore">Sophomore</option>
                 <option value="Junior">Junior</option>
                 <option value="Senior">Senior</option>
             </select> <br>
-            Phone number: <input name="phone" type="text" class="field"> <br /> <br />
+            Phone number: <input title="Phone number" name="phone" type="text" class="field"> <br /> <br />
 
             <input type="checkbox" name="type" value="reviewer" checked="checked"> I would like to be considered to be a reviewer<br> <br />
             <input class="submt-in-button" type="submit" value="Sign Up">
