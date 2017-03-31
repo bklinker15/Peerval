@@ -19,6 +19,15 @@ var UserSchema = mongoose.Schema({
     email: {
         type: String,
         index: true
+    },
+    major: {
+        type: String
+    },
+    university: {
+        type: String
+    },
+    phone: {
+        type: Number
     }
 });
 

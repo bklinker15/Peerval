@@ -6,7 +6,7 @@
 body {
   padding: 20px;
   font: 14px Quicksand, Arial, sans-serif;
-  background-color: #ef6c66;
+  background-color: #ff8189;
   color: white;
 }
 
@@ -22,8 +22,9 @@ a {
 }
 
 #brand{
-  font: 30px "antre";
-
+  position: relative;
+  top: 20px;
+  left: 20px;
 }
 
 #login-button{

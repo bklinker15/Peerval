@@ -42,7 +42,6 @@ router.post('/signup', function(req, res, next) {
     req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
     req.checkBody('university', 'University is required').notEmpty();
     req.checkBody('major', 'Major is required').notEmpty();
-    req.checkBody('phone', 'Password is required').isInt();
 
     //sanitize
     req.sanitize('fname').trim();
@@ -63,7 +62,11 @@ router.post('/signup', function(req, res, next) {
             fname: fname,
             lname: lname,
             password: password,
-            email: email
+            email: email,
+            university: university,
+            major: major,
+            year: year,
+            phone: phone
         });
 
         User.createUser(newUser, function() {
