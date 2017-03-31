@@ -56,7 +56,7 @@ function authorize(credentials) {
     //Check if we have previously stored a token.
     fs.readFile(TOKEN_PATH, function(err, token) {
         if (err) {
-            getNewToken(oauth2Client, callback);
+            getNewToken(oauth2Client);
         } else {
             try {
                 oauth2Client.credentials = JSON.parse(token);
