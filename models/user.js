@@ -30,7 +30,6 @@ module.exports.createUser = function(newUser, callback){
             newUser.save(callback);
         });
     });
-
 };
 
 module.exports.getUserByEmail = function(email, callback){
