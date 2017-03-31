@@ -3,12 +3,6 @@
   src: url("../fonts/antre.otf") format("opentype");
 }
 
-@font-face {
-  font-family: antre;
-  font-weight: bold;
-  src: url("../fonts/antre.otf") format("opentype");
-}
-
 body {
   padding: 20px;
   font: 14px Quicksand, Arial, sans-serif;

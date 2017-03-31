@@ -6,13 +6,35 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "bcryptjs": "*",
     "body-parser": "~1.16.0",
+    "connect-flash": "^0.1.1",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.0",
     "ejs": "~2.5.5",
     "express": "~4.14.1",
+    "express-session": "^1.15.2",
+    "express-validator": "*",
+    "mongodb": "^2.2.25",
+    "mongoose": "*",
     "morgan": "~1.7.0",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^4.0.0",
     "serve-favicon": "~2.3.2",
     "x-frame-options": "^1.0.0"
-  }
+  },
+  "description": "Peer to peer to essay reviewing platform",
+  "main": "app.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Anish2607/Peerval.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Anish2607/Peerval/issues"
+  },
+  "homepage": "https://github.com/Anish2607/Peerval#readme"
 }

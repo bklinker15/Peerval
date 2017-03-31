@@ -18,13 +18,22 @@
 </nav>
 
 <div id="middle-box">
+    <% if(success_msg){%>
+        <div><%=success_msg%></div>
+    <%}%>
+    <% if(error_msg){%>
+    <div><%=error_msg%></div>
+    <%}%>
+    <% if(error){%>
+    <div><%=error%></div>
+    <%}%>
     <h1>Log In</h1>
     <p>Please log in</p>
     <div id="inner-box">
-        <form name="signup-form" action="/home" method="POST">
-            Email: <input name="email-field" type="text" class="field"><br>
-            Password: <input name="password-fireld" type="password" class="field"><br> <br>
-            <input class="submt-in-button" type="submit" value="Login" onclick=""><br>
+        <form name="login-form" action="/users/login" method="POST">
+            Email: <input name="email" type="text" class="field"><br>
+            Password: <input name="password" type="password" class="field"><br> <br>
+            <input class="submt-in-button" type="submit" value="Login"><br>
         </form>
     </div>
     <p>Don't have an account? <a href="signup" style="text-decoration: underline;">Sign up</a></p>
