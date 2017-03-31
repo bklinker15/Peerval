@@ -1,8 +1,16 @@
+body{
+    background: url(/images/landing.png) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-color: #ff8189;
+}
 
 #blurb{
     position: absolute;
     top: 190px;
-    left: 150px;
+    left: 60px;
 }
 #blurb p{
     font-size: 30px;
@@ -29,5 +37,6 @@
     position: absolute;
     top: 80px;
     right: 20px;
+    overflow: visible;
     left: 20px;
 }

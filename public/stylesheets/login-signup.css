@@ -5,7 +5,6 @@
     border: 1px solid white;
     width: 700px;
     height: auto;
-    background-color: rgb(255, 160, 143);
     text-align: center;
     align-items: center;
     position: relative;
@@ -41,7 +40,7 @@ form * {
     color: #ffffff;
     width: 100%;
     font-size: 18px;
-    background: #ef6c66;
+    background: #ff8189;
     padding: 7px 35px 7px 35px;
     border: solid #ffffff 1px;
     text-decoration: none;
@@ -50,5 +49,5 @@ form * {
 .submt-in-button:hover {
     background: #ffffff;
     text-decoration: none;
-    color: #ef6c66;
+    color: #ff8189;
 }
