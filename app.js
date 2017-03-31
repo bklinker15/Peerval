@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
-//var signup = require('./routes/signup');
+var googleAuthentication = require('./googleAuthentication.js');
 
 var app = express();
 
@@ -45,4 +45,5 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+
+module.exports = app
