@@ -1,3 +1,4 @@
+//uploading to GD
 var fs = require('fs');
 var google = require('googleapis');
 var drive = google.drive({ version: 'v3', auth: global.myGoogleAuth });

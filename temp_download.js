@@ -10,6 +10,8 @@ drive.files.get({ fileId: fileId }, function(err, result) {
     opn(result['exportLinks']['application/vnd.openxmlformats-officedocument.wordprocessingml.document']);
     opn('https://docs.google.com/document/u/1/export?format=docx&id='+fileId);
     opn('https://docs.google.com/feeds/download/documents/export/Export?id='+fileId+'&exportFormat=docx'); //Definitely works
-});
 
-https://docs.google.com/feeds/download/documents/export/Export?id=19v0h9RRVZr9cPSeWu9NIxk6_Hl3vllnmGBwPb1GnEaE&exportFormat=docx'
+    //download on client system
+
+    res.redirect('https://docs.google.com/feeds/download/documents/export/Export?id='+fileId+'&exportFormat=docx');
+});
