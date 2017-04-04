@@ -1,8 +1,3 @@
-@font-face {
-  font-family: antre;
-  src: url("/fonts/antre.otf") format("opentype");
-}
-
 body {
   padding-right: 20px;
   padding-left: 20px;
@@ -17,15 +12,17 @@ a {
   text-decoration: none;
 }
 
-#header-bar .link{
-  margin-left: 60px;
-    margin-right: 60px;
-    font-size: 20px;
+
+#navbar{
+  position: fixed;
+  top: -10px;
+  width: 100%;
 }
 
-#header-bar{
-  position: relative;
-  bottom: 40px;
+#navbar-links .link{
+  margin-left: 60px;
+  margin-right: 60px;
+  font-size: 20px;
 }
 
 
@@ -35,13 +32,16 @@ a {
   left: 20px;
 }
 
-#login-button {
+#nav-buttons{
   position: absolute;
   right: 100px;
-  top: 30px;
+  top: 40px;
+
 }
 
 .btn {
+  margin-left: 3px;
+  margin-right: 3px;
   border-radius: 18px;
   font-family: Quicksand;
   color: #ffffff;
