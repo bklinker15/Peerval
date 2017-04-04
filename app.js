@@ -12,7 +12,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var mongo = require('mongodb');
 var googleAuthentication = require('./googleAuthentication');
-
+var fileUpload = require('express-fileupload');
 
 //database connection
 mongoose.connect('mongodb://localhost/peerval');
@@ -35,6 +35,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(fileUpload());
 
 // Exrpess session
 app.use(session({
