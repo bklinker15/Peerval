@@ -12,7 +12,7 @@
 
 <div id="middle-box">
     <h2>Upload an essay for review</h2>
-    <form action="dash/upload">
+    <form action='/files/uploadFile' method='post' encType="multipart/form-data">
         <input type="file" name="essay" accept="">
         <input type="submit" class="blue-btn" value="Upload">
     </form>
