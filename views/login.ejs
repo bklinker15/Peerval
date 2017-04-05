@@ -11,14 +11,13 @@
 </header>
 
 <div id="middle-box">
-    <h1>Log In</h1>
-    <p>Please log in</p>
+    <h2>Log In</h2>
     <div id="inner-box">
         <div><%include ../partials/messages%></div>
         <form name="login-form" action="/users/login" method="POST">
             Email: <input name="email" type="text" class="field"><br>
             Password: <input name="password" type="password" class="field"><br> <br>
-            <input class="submt-in-button" type="submit" value="Login"><br>
+            <input class="blue-btn" type="submit" value="Login"><br>
         </form>
     </div>
     <p>Don't have an account? <a href="signup" style="text-decoration: underline;">Sign up</a></p>

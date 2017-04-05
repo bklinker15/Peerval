@@ -2,7 +2,7 @@ body {
   padding-right: 20px;
   padding-left: 20px;
   padding-top: 20px;
-  font: 14px Quicksand, Arial, sans-serif;
+  font: 14px 'Quicksand', sans-serif;
   background-color: #ff8189;
   color: white;
 }
@@ -10,6 +10,10 @@ body {
 a {
   color: white;
   text-decoration: none;
+}
+
+header{
+  height: 70px;
 }
 
 
@@ -43,7 +47,7 @@ a {
   margin-left: 3px;
   margin-right: 3px;
   border-radius: 18px;
-  font-family: Quicksand;
+  font-family: 'Quicksand', sans-serif;
   color: #ffffff;
   font-size: 20px;
   background: #ff8189;
@@ -56,6 +60,24 @@ a {
   background: #ffffff;
   text-decoration: none;
   color: #ff8189;
+}
+
+.blue-btn {
+  border-radius: 12px;
+  font-family: 'Quicksand', sans-serif;
+  color: #ffffff;
+  width: 100%;
+  font-size: 18px;
+  background: #375d9d;
+  border: none;
+  padding: 7px 35px 7px 35px;
+  text-decoration: none;
+}
+
+.blue-btn:hover {
+  background: #ffffff;
+  text-decoration: none;
+  color: #375d9d;
 }
 
 

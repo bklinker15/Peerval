@@ -1,15 +1,13 @@
 body{
-    background: url(/images/landing.png) no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
+    /*background: url(/images/landing.png) no-repeat center center fixed;*/
+    padding-right: 0;
+    padding-left: 0;
     background-color: #ff8189;
 }
 
 #blurb{
     position: absolute;
-    top: 190px;
+    top: 20%;
     left: 60px;
 }
 #blurb p{
@@ -22,7 +20,7 @@ body{
     -moz-border-radius: 35px;
     border-radius: 35px;
     padding: 10px 50px 10px 50px;
-    font-family: Quicksand;
+    font-family: 'Quicksand', sans-serif;
     font-size: 20px;
     text-decoration: none;
 }
@@ -34,9 +32,15 @@ body{
 
 
 #graphic{
-    position: absolute;
-    top: 80px;
-    right: 20px;
-    overflow: visible;
-    left: 20px;
+    position: relative;
+    height: calc(100vh - 105px);
+    width: 100%;
+    margin-right: -20px;
+    margin-left: -20px;
+}
+
+#landing-img{
+    width: 100%;
+    z-index: -5;
+    overflow: hidden;
 }

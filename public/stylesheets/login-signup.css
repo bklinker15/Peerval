@@ -3,12 +3,13 @@
 #middle-box{
     border-radius: 25px;
     border: 1px solid white;
+    font-size: 17px;
     width: 700px;
     height: auto;
     text-align: center;
     align-items: center;
     position: relative;
-    top: 100px;
+    top: 85px;
     bottom: 0;
     left: 0;
     right: 0;
@@ -22,7 +23,6 @@ form * {
     margin: 5px;
 }
 
-
 #inner-box{
     text-align: right;
     width: auto;
@@ -30,13 +30,29 @@ form * {
 }
 
 .field{
+    border-radius: 6px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
     width: 200px;
+    background: transparent;
+    color: white;
+    font-family: 'Quicksand', sans-serif;
+    border: solid #ffffff 1px;
+    font-size: 17px;
 }
+
+.field:focus {
+    outline: none !important;
+    border:1px solid #ffffff;
+    box-shadow: 0 0 10px #375d9d;
+}
+
 
 
 .submt-in-button {
     border-radius: 12px;
-    font-family: Quicksand;
+    font-family: 'Quicksand', sans-serif;
     color: #ffffff;
     width: 100%;
     font-size: 18px;
