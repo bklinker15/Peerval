@@ -1,4 +1,5 @@
 
 .idea/runConfigurations/
 .idea/workspace.xml
+.idea/mongoSettings.xml
 node_modules/
