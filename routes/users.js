@@ -40,8 +40,9 @@ router.post('/signup', function(req, res, next) {
     req.checkBody('password', 'Password is required').notEmpty();
     req.checkBody('password2', 'Confirm password is required').notEmpty();
     req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
-    req.checkBody('university', 'University is required').notEmpty();
-    req.checkBody('major', 'Major is required').notEmpty();
+    !req.checkBody('university', 'University is required').equals("");
+    !req.checkBody('major', 'Major is required').equals("");
+    !req.checkBody('year', 'Class year is required').equals("");
 
     //sanitize
     req.sanitize('fname').trim();
@@ -76,7 +77,7 @@ router.post('/signup', function(req, res, next) {
         });
 
         req.flash('success_msg', 'You are registered and can now login');
-        res.redirect('/users/login')  //TODO change to home
+        res.redirect('/dash')
     }
 });
 
@@ -116,7 +117,7 @@ passport.deserializeUser(function(id, done) {
 
 //Passport authentication
 router.post('/login',
-    passport.authenticate('local', {successRedirect: '/', failureRedirect:'/users/login', failureFlash: true}),
+    passport.authenticate('local', {successRedirect: '/dash', failureRedirect:'/users/login', failureFlash: true}),
     function(req, res) {
         res.redirect('/');
     });

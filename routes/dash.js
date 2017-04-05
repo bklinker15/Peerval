@@ -6,7 +6,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', ensureAuthenticated, function(req, res, next) {
-    res.render('home', { title: 'Express' });
+    res.render('dash', { title: 'Express' });
 });
 
 function ensureAuthenticated(req, res, next){
