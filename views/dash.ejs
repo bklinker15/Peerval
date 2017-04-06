@@ -9,13 +9,25 @@
 <header>
     <% include ../partials/navbar%>
 </header>
-
-<div id="middle-box">
+<h1>Dashboard</h1>
+<div id="left-box">
     <h2>Upload an essay for review</h2>
-    <form action='/files/uploadFile' method='post' encType="multipart/form-data">
-        <input type="file" name="essay" accept="">
-        <input type="submit" class="blue-btn" value="Upload">
-    </form>
+    <div id="inner-left-box">
+        <form action='/files/uploadFile' method='post' encType="multipart/form-data">
+            Essay Name: <input type="text" name="essay-name"><br>
+            Topic: <input type="text" name="topic"><br>
+            Page Length: <input type="test" name="page-min" style="width: 20px"> to
+            <input type="text" name="page-max" style="width: 20px"> <br>
+            Prompt: <input type="text" name="prompt"> <br><br>
+
+            <input type="file" name="file" accept="">
+            <input type="submit" class="blue-btn" value="Upload">
+        </form>
+    </div>
+</div>
+<div id="middle-box">
+    <h2>Your uploaded essays</h2>
+
 </div>
 
 <div id="side-box">

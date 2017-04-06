@@ -1,17 +1,37 @@
 
+#left-box{
+    border-radius: 25px;
+    border: 1px solid white;
+    font-size: 17px;
+    width: 30vw;
+    height: auto;
+    text-align: center;
+    align-items: center;
+    position: absolute;
+    top: 160px;
+    bottom: 0;
+    left: 1vw;
+    margin: auto;
+}
+
+#inner-left-box{
+    align-items: right;
+    text-align: right;
+    padding: 20px;
+}
+
 #middle-box{
     border-radius: 25px;
     border: 1px solid white;
     font-size: 17px;
-    width: 700px;
+    width: 30vw;
     height: auto;
     text-align: center;
     align-items: center;
-    position: relative;
-    top: 85px;
+    position: absolute;
+    top: 160px;
     bottom: 0;
-    left: 0;
-    right: 0;
+    left: 32vw;
     margin: auto;
 }
 

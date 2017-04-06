@@ -10,8 +10,11 @@
 <header>
     <% include ../partials/navbar%>
 </header>
+<div id="cloud-background">
+    <img id="cloud-img"src="/images/cloud-background.png" alt="Image could not be loaded">
+</div>
 
-<div id="middle-box">
+<div class="middle-box" id="signup-box">
     <h2>Signup</h2>
     <p>Already have an account? <a style="text-decoration: underline;" href="/users/login">Login</a></p>
     <div id="inner-box">
@@ -49,8 +52,7 @@
             Phone number: <input title="Phone number" name="phone" type="text" class="field"> <br /> <br />
 
             <input type="checkbox" name="type" value="reviewer" checked="checked"> I would like to be considered to be a reviewer<br> <br />
-            <input class="blue-btn" type="submit" value="Sign Up">
-            <div id="error-message"></div>
+            <input class="blue-btn" type="submit" value="Sign Up"><br>
         </form>
     </div>
 </div>

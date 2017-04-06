@@ -1,13 +1,17 @@
 <% if(success_msg){%>
-    <div><%=success_msg%></div>
+    <div  style="color: #2eff22"><%=success_msg%></div>
 <%}%>
 <% if(error_msg){%>
-    <div><%=error_msg%></div>
+    <div  style="color: #ff4046"><%=error_msg%></div>
 <%}%>
+<%if(error){%>
+<div  style="color: #ff4046"><%=error%></div>
+<%}%>
+
 <% if(errors){
     for(var i = 0; i < errors.length; i++){
         %>
-            <div><%=errors[i].msg%></div>
+            <div style="color: #ff4046"><%=errors[i].msg%></div>
         <%
     }
 }%>
