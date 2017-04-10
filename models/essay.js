@@ -8,7 +8,6 @@ var EssaySchema = mongoose.Schema({
     authorId: String,
     fileId: String,
     status: String,
-    thumbnailLink: String,
     downloadLink: String,
     GDalternateLink: String,
     priority: Number,

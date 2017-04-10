@@ -26,18 +26,19 @@ router.post('/uploadFile', function(req, res, next) {
             console.log(err);
         } else {
             var drive = google.drive({ version: 'v2', auth: global.myGoogleAuth });
-
+            //console.log(file)
             drive.files.get({ fileId: file.id }, function (err, result){
                 if(err) {
                     // Handle error
                     console.log(err);
                 } else {
+                    // console.log("Result");
+                    // console.log(result);
                     var newEssay = new Essay({
                         authorEmail: req.user.email,
                         authorId: req.user._id,
                         fileId: result.id,
                         status: "Not_Reviewed",
-                        thumbnailLink: result.thumbnailLink,
                         downloadLink: 'https://docs.google.com/feeds/download/documents/export/Export?id=' + file.id + '&exportFormat=docx',
                         GDalternateLink: result.alternateLink,
                         priority: req.body.priority,

@@ -6,7 +6,45 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', ensureAuthenticated, function(req, res, next) {
-    res.render('dash', { title: 'Express' });
+    var User = require('../models/user')
+    var Essay = require('../models/essay');
+
+    var essays = [];
+    //find the user
+    User.findById(req.user._id, function (err, user) {
+        if (err) return handleError(err);
+      console.log(user.uploadedEssayIds);
+        //loop through all the essay IDs for this user
+       // for( var essayID = 0; essayID< user.uploadedEssayIds.length(); essayID++){
+        var ctr=0;
+        user.uploadedEssayIds.forEach(function(essayID) {
+
+            //find the essay
+            Essay.findById(essayID, function (err, essay) {
+                //get the thumbnail
+                var google = require('googleapis');
+                var drive = google.drive({ version: 'v2', auth: global.myGoogleAuth });
+
+                drive.files.get({ fileId: essay.fileId }, function(err, result) {
+                    var thumbnail = result.thumbnailLink;
+                    //add essay object to the array
+                    essays.push({
+                        title: essay.title,
+                        thumbnailLink: thumbnail,
+                        status: essay.status,
+                        date: essay.uploadDate,
+                        subject: essay.subject
+                    })
+                    ctr++;
+                    if(ctr == user.uploadedEssayIds.length){
+                        console.log(essays[0]);
+                        res.render('dash', { title: 'Express' , essayArray: essays});
+                    }
+                });
+            });
+
+        });
+    });
 });
 
 function ensureAuthenticated(req, res, next){
