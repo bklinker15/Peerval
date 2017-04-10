@@ -31,7 +31,7 @@ var UserSchema = mongoose.Schema({
         type: Number,
         default: 0
     },
-    uploadedEssayIds: [mongoose.Schema.Types.ObjectId]
+    uploadedEssayIds: [String]
 });
 
 var User = module.exports = mongoose.model('User', UserSchema);

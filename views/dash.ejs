@@ -35,10 +35,15 @@
     <h2>Upload an Essay</h2>
     <div id="inner-left-box">
         <form action='/files/uploadFile' method='post' encType="multipart/form-data">
-            Essay Name: <input type="text" name="essay-name"><br>
+            Essay Name: <input type="text" name="essayName"><br>
             Topic: <input type="text" name="topic"><br>
-            Page Length: <input type="text" name="page-length" style="width: 30px;"> <br>
+            Page Length: <input type="text" name="pageLength" style="width: 30px;"> <br>
             Prompt: <input type="text" name="prompt"> <br><br>
+            Priority: <input type="number" name="priority"> <br><br>
+            Reward: <input type="number" name="reward"> <br><br>
+            Department: <input type="text" name="classPrefix"> <br><br>
+            CourseID: <input type="number" name="classNumber"> <br><br>
+            Due Date: <input type="number" name="month"> | <input type="number" name="day"> | <input type="number" name="year"> <br><br>
 
             <input type="file" name="file" accept="">
             <input type="submit" class="blue-btn" value="Upload">
