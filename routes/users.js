@@ -24,7 +24,6 @@ router.get('/login', function(req, res, next) {
 //register user
 router.post('/signup', function(req, res, next) {
 
-
     //validation
     req.checkBody('fname', 'First name is required').notEmpty();
     req.checkBody('lname', 'Last name is required').notEmpty();
@@ -60,7 +59,6 @@ function processUser(req, res, results) {
     var phone = req.body.phone;
     var year = req.body.year;
     var isReviewer = req.body.isReviewer;
-    //var Reviewer id = new Reviewer{}
     //TODO add more fields
 
     var Errors = require('express-validator-errors')
