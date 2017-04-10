@@ -3,6 +3,8 @@ var router = express.Router();
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var User = require('../models/user');
+var Reviewer = require('../models/reviewer');
+
 
 /* GET users listing. */
 //signup
@@ -21,18 +23,7 @@ router.get('/login', function(req, res, next) {
 
 //register user
 router.post('/signup', function(req, res, next) {
-    var fname = req.body.fname;
-    var lname = req.body.lname;
-    var email = req.body.email;
-    var password = req.body.password;
-    var password2 = req.body.password2;
-    var university = req.body.university;
-    var major = req.body.major;
-    var phone = req.body.phone;
-    var year = req.body.year;
-    var isReviewer = req.body.isReviewer;
-    //var Reviewer id = new Reviewer{}
-    //TODO add more fields
+
 
     //validation
     req.checkBody('fname', 'First name is required').notEmpty();
@@ -52,13 +43,38 @@ router.post('/signup', function(req, res, next) {
     req.sanitize('email').trim();
     req.sanitize('phone').trim();
 
+    User.find({email: req.body.email}, function(err, docs){
+        console.log(docs);
+        processUser(req, res, docs)
+    });
+});
+
+function processUser(req, res, results) {
+    var fname = req.body.fname;
+    var lname = req.body.lname;
+    var email = req.body.email;
+    var password = req.body.password;
+    var password2 = req.body.password2;
+    var university = req.body.university;
+    var major = req.body.major;
+    var phone = req.body.phone;
+    var year = req.body.year;
+    var isReviewer = req.body.isReviewer;
+    //var Reviewer id = new Reviewer{}
+    //TODO add more fields
+
+    var Errors = require('express-validator-errors')
+
+    if(results.length > 0){
+        Errors.addToReq(req, 'email', 'Email address is taken', req.body)
+    }
 
     var errors = req.validationErrors();
+
 
     if(errors){
         res.render('signup', {
             errors:errors
-            //TODO display errors on the page
         });
     }else{
         var newUser = new User({
@@ -71,8 +87,13 @@ router.post('/signup', function(req, res, next) {
             year: year,
             phone: phone,
             isReviewer: isReviewer
-
         });
+
+        if(newUser.isReviewer){
+            Reviewer.createReviewer(newUser._id, function(newReviewer) {
+                newUser.reviewerId = newReviewer._id;
+            });
+        }
 
         User.createUser(newUser, function() {
             //if (err) throw err;
@@ -80,10 +101,12 @@ router.post('/signup', function(req, res, next) {
 
         });
 
+
         req.flash('success_msg', 'You are registered and can now login');
         res.redirect('/dash')
     }
-});
+}
+
 
 passport.use(new LocalStrategy({
         //tell passport to use email field as a username

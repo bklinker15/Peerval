@@ -18,7 +18,10 @@ var UserSchema = mongoose.Schema({
     university: String,
     phone: Number,
     year: String,
-    isReviewer: Boolean,
+    isReviewer: {
+        type: Boolean,
+        default: false
+    },
     reviewerId: mongoose.Schema.Types.ObjectId,
     dateJoined: {
         type: Date,

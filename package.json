@@ -16,6 +16,7 @@
     "express-fileupload": "^0.1.2",
     "express-session": "^1.15.2",
     "express-validator": "*",
+    "express-validator-errors": "^2.1.0",
     "google-auth-library": "^0.10.0",
     "googleapis": "^18.0.0",
     "mongodb": "^2.2.25",
