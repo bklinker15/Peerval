@@ -24,16 +24,40 @@ router.get('/', ensureAuthenticated, function(req, res, next) {
 
                 //find the essay
                 Essay.findById(essayID, function (err, essay) {
-                    //get the thumbnail
-                    var google = require('googleapis');
-                    var drive = google.drive({version: 'v2', auth: global.myGoogleAuth});
 
-                    drive.files.get({fileId: essay.fileId}, function (err, result) {
-                        var thumbnail = result.thumbnailLink;
-                        //add essay object to the array
+                    //check if thumbnail already exists
+                    if(essay.thumbnailLink == undefined || essay.thumbnailLink.length==0) {
+                        //get the thumbnail
+                        var google = require('googleapis');
+                        var drive = google.drive({version: 'v2', auth: global.myGoogleAuth});
+
+                        drive.files.get({fileId: essay.fileId}, function (err, result) {
+                            var thumbnail = result.thumbnailLink;
+                            essay.thumbnailLink = thumbnail;
+                            essay.save(function (err, updatedUser) {
+                                if (err) console.log(err);;
+                            });
+                            //add essay object to the array
+                            essays.push({
+                                title: essay.title,
+                                fileId: essay.fileId,
+                                thumbnailLink: thumbnail,
+                                status: essay.status,
+                                date: essay.uploadDate,
+                                subject: essay.subject
+                            });
+                            ctr++;
+                            if (ctr == user.uploadedEssayIds.length) {
+                                console.log(essays[0]);
+                                res.render('dash', {title: 'Express', essayArray: essays});
+                            }
+                        });
+                    }
+                    else{
                         essays.push({
                             title: essay.title,
-                            thumbnailLink: thumbnail,
+                            fileId: essay.fileId,
+                            thumbnailLink: essay.thumbnailLink,
                             status: essay.status,
                             date: essay.uploadDate,
                             subject: essay.subject
@@ -43,7 +67,7 @@ router.get('/', ensureAuthenticated, function(req, res, next) {
                             console.log(essays[0]);
                             res.render('dash', {title: 'Express', essayArray: essays});
                         }
-                    });
+                    }
                 });
 
             });
@@ -61,3 +85,13 @@ function ensureAuthenticated(req, res, next){
 }
 
 module.exports = router;
+
+
+
+/*
+ <% for(var i=0 ; i<essayArray.length ; i++){ %>
+ <a href="/files/downloadFile?fileId=<%= essayArray[i].fileId %>">
+ <img src='<%= essayArray[i].thumbnailLink %>'>
+ </a>
+ <% }%>
+ */

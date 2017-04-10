@@ -13,7 +13,7 @@ router.post('/uploadFile', function(req, res, next) {
 
     drive.files.create({
         resource: {
-            name: req.user._id + req.body.essayName,
+            name: req.user.fname + "_" + req.user.lname + "_" + req.body.essayName,
             mimeType: 'application/vnd.google-apps.document'
         },
         media: {
@@ -39,7 +39,7 @@ router.post('/uploadFile', function(req, res, next) {
                         authorId: req.user._id,
                         fileId: result.id,
                         status: "Not_Reviewed",
-                        downloadLink: 'https://docs.google.com/feeds/download/documents/export/Export?id=' + file.id + '&exportFormat=docx',
+                        thumbnailLink: "",
                         GDalternateLink: result.alternateLink,
                         priority: req.body.priority,
                         reviewerId: "",
@@ -74,5 +74,36 @@ router.post('/uploadFile', function(req, res, next) {
     });
 });
 
+router.get('/downloadFile', function(req, res, next){
+    var google = require('googleapis');
+    var drive = google.drive({ version: 'v2', auth: global.myGoogleAuth });
+    var fileId = req.query.fileId;
+    var downloadLink = 'https://docs.google.com/feeds/download/documents/export/Export?id='+fileId+'&exportFormat=docx';
+    //provide temporary permissions to the user
+    drive.permissions.insert({
+        'fileId': fileId,
+        'resource': {
+            "role": "reader",
+            "type": "anyone",   //can change to a specific user
+            "additionalRoles": [
+                "commenter"
+            ]
+        }
+    }, function (err, resp, body) {
+            if (err) {
+                // Handle error
+                console.log(err);
+            }
+            else {
+                res.redirect(downloadLink); //download the file
+                //delete permissions
+                drive.permissions.delete({
+                    'fileId': fileId,
+                    'permissionId': 'anyone'
+                })
+            }
+        }
+    );
+});
 
 module.exports = router;
