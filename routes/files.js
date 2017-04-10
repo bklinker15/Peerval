@@ -69,7 +69,8 @@ router.post('/uploadFile', function(req, res, next) {
             });
 
 
-            res.send('File uploaded!');
+            req.flash('success_msg', 'File uploaded!');
+            res.redirect('/dash')
         }
     });
 });

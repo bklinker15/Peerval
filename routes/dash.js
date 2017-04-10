@@ -86,6 +86,13 @@ module.exports = router;
 
 
 /*
+success message:
+ <% if(success_msg){%>
+ <div  style="color: #2eff22"><%=success_msg%></div> <br>
+ <%}%>
+
+
+display uploaded essays:
  <% for(var i=0 ; i<essayArray.length ; i++){ %>
  <a href="/files/downloadFile?fileId=<%= essayArray[i].fileId %>">
  <img src='<%= essayArray[i].thumbnailLink %>'>
