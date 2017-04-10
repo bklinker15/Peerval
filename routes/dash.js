@@ -13,7 +13,6 @@ router.get('/', ensureAuthenticated, function(req, res, next) {
     //find the user
     User.findById(req.user._id, function (err, user) {
         if (err) return handleError(err);
-      console.log(user.uploadedEssayIds);
         //loop through all the essay IDs for this user
        // for( var essayID = 0; essayID< user.uploadedEssayIds.length(); essayID++){
         if(user.uploadedEssayIds.length==0){
@@ -48,7 +47,6 @@ router.get('/', ensureAuthenticated, function(req, res, next) {
                             });
                             ctr++;
                             if (ctr == user.uploadedEssayIds.length) {
-                                console.log(essays[0]);
                                 res.render('dash', {title: 'Express', essayArray: essays});
                             }
                         });
@@ -64,7 +62,6 @@ router.get('/', ensureAuthenticated, function(req, res, next) {
                         })
                         ctr++;
                         if (ctr == user.uploadedEssayIds.length) {
-                            console.log(essays[0]);
                             res.render('dash', {title: 'Express', essayArray: essays});
                         }
                     }
