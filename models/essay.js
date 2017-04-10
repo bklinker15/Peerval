@@ -5,14 +5,14 @@ var bcrypt = require('bcryptjs');
 //User schema
 var EssaySchema = mongoose.Schema({
     authorEmail:String,
-    authorMongoID: String,
-    fileID: String,
+    authorId: String,
+    fileId: String,
     status: String,
     thumbnailLink: String,
     downloadLink: String,
     GDalternateLink: String,
     priority: Number,
-    reviewerID: String,
+    reviewerId: String,
     uploadDate: Date,
 
     dueDate: Date,

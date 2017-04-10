@@ -34,14 +34,14 @@ router.post('/uploadFile', function(req, res, next) {
                 } else {
                     var newEssay = new Essay({
                         authorEmail: req.user.email,
-                        authorMongoID: req.user._id,
-                        fileID: result.id,
+                        authorId: req.user._id,
+                        fileId: result.id,
                         status: "Not_Reviewed",
                         thumbnailLink: result.thumbnailLink,
                         downloadLink: 'https://docs.google.com/feeds/download/documents/export/Export?id=' + file.id + '&exportFormat=docx',
                         GDalternateLink: result.alternateLink,
                         priority: req.body.priority,
-                        reviewerID: "",
+                        reviewerId: "",
                         uploadDate: new Date(),
 
                         dueDate: new Date(req.body.year, req.body.month, req.body.day),
