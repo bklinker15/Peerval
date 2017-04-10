@@ -30,6 +30,8 @@ router.post('/signup', function(req, res, next) {
     var major = req.body.major;
     var phone = req.body.phone;
     var year = req.body.year;
+    var isReviewer = req.body.isReviewer;
+    //var Reviewer id = new Reviewer{}
     //TODO add more fields
 
     //validation
@@ -40,9 +42,9 @@ router.post('/signup', function(req, res, next) {
     req.checkBody('password', 'Password is required').notEmpty();
     req.checkBody('password2', 'Confirm password is required').notEmpty();
     req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
-    !req.checkBody('university', 'University is required').equals("");
-    !req.checkBody('major', 'Major is required').equals("");
-    !req.checkBody('year', 'Class year is required').equals("");
+    req.checkBody('university', 'University is required').notEmpty();
+    req.checkBody('major', 'Major is required').notEmpty();
+    req.checkBody('year', 'Class year is required').notEmpty();
 
     //sanitize
     req.sanitize('fname').trim();
@@ -67,7 +69,9 @@ router.post('/signup', function(req, res, next) {
             university: university,
             major: major,
             year: year,
-            phone: phone
+            phone: phone,
+            isReviewer: isReviewer
+
         });
 
         User.createUser(newUser, function() {

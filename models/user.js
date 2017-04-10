@@ -7,28 +7,28 @@ var bcrypt = require('bcryptjs');
 
 //User schema
 var UserSchema = mongoose.Schema({
-    fname: {
-        type: String
-    },
-    lname: {
-        type: String
-    },
-    password: {
-        type: String
-    },
+    fname: String,
+    lname: String,
+    password: String,
     email: {
         type: String,
         index: true
     },
-    major: {
-        type: String
+    major: String,
+    university: String,
+    phone: Number,
+    year: String,
+    isReviewer: Boolean,
+    reviewerId: mongoose.Schema.Types.ObjectId,
+    dateJoined: {
+        type: Date,
+        default: Date.now
     },
-    university: {
-        type: String
+    wallet: {
+        type: Number,
+        default: 0
     },
-    phone: {
-        type: Number
-    }
+    uploadedEssayIds: [mongoose.Schema.Types.ObjectId]
 });
 
 var User = module.exports = mongoose.model('User', UserSchema);

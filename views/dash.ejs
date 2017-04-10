@@ -4,20 +4,40 @@
     <%include ../partials/head%>
 
     <link rel='stylesheet' href='/stylesheets/dash.css' />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <script>
+    function openTab(tabName) {
+    var i;
+    var x = document.getElementsByClassName("w3-container city w3-animate-left");
+    for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";
+    }
+    document.getElementById(tabName).style.display = "block";
+    }
+    </script>
+
 </head>
 <body>
 <header>
     <% include ../partials/navbar%>
 </header>
+
 <h1>Dashboard</h1>
-<div id="left-box">
-    <h2>Upload an essay for review</h2>
+
+<div id="tab-bar" class="w3-bar">
+    <button class="w3-bar-item w3-button" onclick="openTab('upload')">Upload an Essay</button>
+    <button class="w3-bar-item w3-button" onclick="openTab('uploaded')">Your Uploaded Essays</button>
+    <button class="w3-bar-item w3-button" onclick="openTab('review')">Review</button>
+</div>
+
+<div id="upload" class="w3-container city w3-animate-left">
+    <h2>Upload an Essay</h2>
     <div id="inner-left-box">
         <form action='/files/uploadFile' method='post' encType="multipart/form-data">
             Essay Name: <input type="text" name="essay-name"><br>
             Topic: <input type="text" name="topic"><br>
-            Page Length: <input type="test" name="page-min" style="width: 20px"> to
-            <input type="text" name="page-max" style="width: 20px"> <br>
+            Page Length: <input type="text" name="page-length" style="width: 30px;"> <br>
             Prompt: <input type="text" name="prompt"> <br><br>
 
             <input type="file" name="file" accept="">
@@ -25,9 +45,14 @@
         </form>
     </div>
 </div>
-<div id="middle-box">
-    <h2>Your uploaded essays</h2>
+<div id="uploaded" class="w3-container city w3-animate-left" style="display:none">
+    <h2>Paris</h2>
+    <p>Paris is the capital of France.</p>
+</div>
 
+<div id="review" class="w3-container city w3-animate-left" style="display:none">
+    <h2>Tokyo</h2>
+    <p>Tokyo is the capital of Japan.</p>
 </div>
 
 <div id="side-box">

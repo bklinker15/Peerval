@@ -27,18 +27,18 @@ option{
 }
 
 #cloud-background{
-    position: fixed;
+    position: absolute;
     top: 0;
-    right: 0;
-    bottom: 0;
     z-index: -100;
     margin: 0;
     padding: 0;
 }
 
-@cloud-img{
-    max-width: 100%;
-    max-height: 100%;
+#cloud-img{
+    position: fixed;
+    top: 65px;
+    width: 98vw;
+    bottom: 0;
 }
 
 
