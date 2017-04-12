@@ -25,46 +25,59 @@ router.get('/', ensureAuthenticated, function(req, res, next) {
                 Essay.findById(essayID, function (err, essay) {
 
                     //check if thumbnail already exists
-                    if(essay.thumbnailLink == undefined || essay.thumbnailLink.length==0) {
-                        //get the thumbnail
-                        var google = require('googleapis');
-                        var drive = google.drive({version: 'v2', auth: global.myGoogleAuth});
+                    // if(essay.thumbnailLink == undefined || essay.thumbnailLink.length==0) {
+                    //     //get the thumbnail
+                    //     var google = require('googleapis');
+                    //     var drive = google.drive({version: 'v2', auth: global.myGoogleAuth});
+                    //
+                    //     drive.files.get({fileId: essay.fileId}, function (err, result) {
+                    //         var thumbnail = result.thumbnailLink;
+                    //         essay.thumbnailLink = thumbnail;
+                    //         essay.save(function (err, updatedUser) {
+                    //             if (err) console.log(err);;
+                    //         });
+                    //         //add essay object to the array
+                    //         essays.push({
+                    //             title: essay.title,
+                    //             fileId: essay.fileId,
+                    //             thumbnailLink: thumbnail,
+                    //             status: essay.status,
+                    //             date: essay.uploadDate,
+                    //             subject: essay.subject
+                    //         });
+                    //         ctr++;
+                    //         if (ctr == user.uploadedEssayIds.length) {
+                    //             res.render('dash', {title: 'Express', essayArray: essays});
+                    //         }
+                    //     });
+                    // }
+                    // else{
+                    //     essays.push({
+                    //         title: essay.title,
+                    //         fileId: essay.fileId,
+                    //         thumbnailLink: essay.thumbnailLink,
+                    //         status: essay.status,
+                    //         date: essay.uploadDate,
+                    //         subject: essay.subject
+                    //     })
+                    //     ctr++;
+                    //     if (ctr == user.uploadedEssayIds.length) {
+                    //         res.render('dash', {title: 'Express', essayArray: essays});
+                    //     }
+                    // }
 
-                        drive.files.get({fileId: essay.fileId}, function (err, result) {
-                            var thumbnail = result.thumbnailLink;
-                            essay.thumbnailLink = thumbnail;
-                            essay.save(function (err, updatedUser) {
-                                if (err) console.log(err);;
-                            });
-                            //add essay object to the array
-                            essays.push({
-                                title: essay.title,
-                                fileId: essay.fileId,
-                                thumbnailLink: thumbnail,
-                                status: essay.status,
-                                date: essay.uploadDate,
-                                subject: essay.subject
-                            });
-                            ctr++;
-                            if (ctr == user.uploadedEssayIds.length) {
-                                res.render('dash', {title: 'Express', essayArray: essays});
-                            }
-                        });
-                    }
-                    else{
+                        //add essay object to the array
                         essays.push({
                             title: essay.title,
                             fileId: essay.fileId,
-                            thumbnailLink: essay.thumbnailLink,
                             status: essay.status,
                             date: essay.uploadDate,
                             subject: essay.subject
-                        })
+                        });
                         ctr++;
                         if (ctr == user.uploadedEssayIds.length) {
                             res.render('dash', {title: 'Express', essayArray: essays});
                         }
-                    }
                 });
 
             });

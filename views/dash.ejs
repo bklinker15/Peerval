@@ -53,10 +53,16 @@
     <div id="uploaded" class="w3-container tab-area w3-animate-right">
         <h1>Essays in Progress</h1>
         <%for(var i =0; i < essayArray.length; i++){ %>
-            <div class="essay-box">
+            <div class="essay-box" style="float: left;">
                 <h4><%=essayArray[i].title%></h4>
-                <img src='<%=essayArray[i].thumbnailLink%>' alt="Thumbnail not found">
+
+
+                <a href="/files/downloadFile?fileId=<%= essayArray[i].fileId %>">
+                    <img src='/images/essay_stockPhoto.png' height="200" width="150" >
+                </a>
+                <br>
                 <%=essayArray[i].status%>
+                <br>
                 <%=essayArray[i].subject%>
             </div>
         <%}%>
