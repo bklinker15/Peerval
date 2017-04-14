@@ -7,20 +7,57 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
     <script>
-    function openTab(evt, tabName) {
-    var i;
-    var x = document.getElementsByClassName("tab-area");
-    for (i = 0; i < x.length; i++) {
-    x[i].style.display = "none";
-    }
+    function openTab(updateSection, tabName) {
+        //if this function was called by click on tab then update left panel
+        if(updateSection){
+            //if not in the uplaod area, un-highlight the left panel
+            if(tabName != "uploaded") {
+                var sidelinks = document.getElementsByClassName("side-link-button");
+                for (var k = 0; k < sidelinks.length; k++) {
+                    sidelinks[k].className = sidelinks[k].className.replace(" side-highlight", "");
+                }
+            }
+            else {
+            essaySection("inProgress");
+            }
+        }
+        //display the area asscoaited with the tab just clicked
+        var i;
+        var x = document.getElementsByClassName("tab-area");
+        for (i = 0; i < x.length; i++) {
+         x[i].style.display = "none";
+        }
 
-    var tablinks = document.getElementsByClassName("tab-link");
+        var tablinks = document.getElementsByClassName("tab-link");
         for(var k = 0; k < tablinks.length; k++){
-        tablinks[k].className = tablinks[k].className.replace(" highlight", "");
+            tablinks[k].className = tablinks[k].className.replace(" highlight", "");
+        }
+        document.getElementById(tabName+"_tab").className += " highlight";
+        document.getElementById(tabName).style.display = "block";
+
     }
 
-    evt.currentTarget.className += " highlight";
-    document.getElementById(tabName).style.display = "block";
+
+    //functionality for button clicks on the left panel
+    function essaySection(sectionName){
+        //open the uploaded section first
+        openTab(false, 'uploaded');
+
+        //open section associated with this button
+        var i;
+        var x = document.getElementsByClassName("uploaded_area");
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+
+        var sidelinks = document.getElementsByClassName("side-link-button");
+        for(var k = 0; k < sidelinks.length; k++){
+            sidelinks[k].className = sidelinks[k].className.replace(" side-highlight", "");
+        }
+        console.log(sectionName);
+        document.getElementById(sectionName+"_button").className += " side-highlight";
+        document.getElementById(sectionName+"_area").style.display = "block";
+        console.log(sectionName);
 
     }
     </script>
@@ -32,31 +69,28 @@
 </header>
 
 <div id="tab-side">
-    <button class="blue-btn" id="upload-btn">Upload</button> <br>
+    <button type="image" class="blue-btn" id="upload-btn" onclick="openTab(true, 'upload')"></button> <br>
     <div id="side-links">
-        <div class="side-link-bg side-highlight">
-        <a>Essays in progress</a>
-        </div>
-        <div class="side-link-bg" style="margin-top: 3px">
-            <a>Reviewed Essays</a>
-        </div>
+        &nbsp; ESSAYS
+        <button id="inProgress_button" class="side-link-button side-highlight" onclick="essaySection('inProgress')"> Essays in progress </button>
+        <button id="reviewed_button" class="side-link-button " onclick="essaySection('reviewed')"> Reviewed Essays </button>
     </div>
 </div>
 
 <div id="tab-section">
     <div id="tab-bar" class="w3-bar">
-        <button name="uploaded" class="tab-link highlight" onclick="openTab(event, 'uploaded')">Uploaded</button>
-        <button name="upload" class="tab-link" onclick="openTab(event, 'upload')">Upload</button>
-        <button name="review" class="tab-link" onclick="openTab(event, 'review')">Review</button>
+        <button name="uploaded" id="uploaded_tab" class="tab-link highlight" onclick="openTab(true, 'uploaded')">Uploaded</button>
+        <button name="upload" id="upload_tab" class="tab-link" onclick="openTab(true, 'upload')">Upload</button>
+        <button name="review" id="review_tab" class="tab-link" onclick="openTab(true, 'review')">Review Essays</button>
     </div>
 
-    <div id="uploaded" class="w3-container tab-area w3-animate-right">
+    <div id="uploaded" class="w3-container tab-area ">
+        <div id="inProgress_area" class="uploaded_area">
         <h1>Essays in Progress</h1>
+        <hr style="margin-top: -7px; border-width: 2px;">
         <%for(var i =0; i < essayArray.length; i++){ %>
             <div class="essay-box" style="float: left;">
                 <h4><%=essayArray[i].title%></h4>
-
-
                 <a href="/files/downloadFile?fileId=<%= essayArray[i].fileId %>">
                     <img src='/images/essay_stockPhoto.png' height="200" width="150" >
                 </a>
@@ -66,10 +100,16 @@
                 <%=essayArray[i].subject%>
             </div>
         <%}%>
+        </div>
+        <div id="reviewed_area" class="uploaded_area" style="display:none">
+            <h1>Reviewed Essays</h1>
+            <hr style="margin-top: -7px; border-width: 2px;">
+        </div>
     </div>
 
-    <div id="upload" class="w3-container tab-area  w3-animate-right" style="display:none">
+    <div id="upload" class="w3-container tab-area " style="display:none">
         <h2>Upload an Essay</h2>
+        <hr style="margin-top: -7px; border-width: 2px;">
         <div id="inner-left-box">
             <form action='/files/uploadFile' method='post' encType="multipart/form-data">
                 Essay Name: <input type="text" name="essayName"><br>
@@ -88,7 +128,7 @@
         </div>
     </div>
 
-    <div id="review" class="w3-container tab-area w3-animate-right" style="display:none">
+    <div id="review" class="w3-container tab-area " style="display:none">
         <h1>Review Center</h1>
     </div>
 
