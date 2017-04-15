@@ -18,10 +18,10 @@
                 }
             }
             else {
-            essaySection("inProgress");
+                essaySection("inProgress");
             }
         }
-        //display the area asscoaited with the tab just clicked
+        //display the area associated with the tab just clicked
         var i;
         var x = document.getElementsByClassName("tab-area");
         for (i = 0; i < x.length; i++) {
@@ -54,12 +54,54 @@
         for(var k = 0; k < sidelinks.length; k++){
             sidelinks[k].className = sidelinks[k].className.replace(" side-highlight", "");
         }
-        console.log(sectionName);
+
         document.getElementById(sectionName+"_button").className += " side-highlight";
         document.getElementById(sectionName+"_area").style.display = "block";
-        console.log(sectionName);
-
     }
+
+    //sort the files based on the sort method
+    function sortSection(sortMethod) {
+
+        var sortButtons = document.getElementsByClassName("sort-buttons");
+        for(var k = 0; k < sortButtons.length; k++){
+            sortButtons[k].className = sortButtons[k].className.replace(" sort-buttons-highlight", "");
+        }
+
+        document.getElementById(sortMethod+"_button").className += " sort-buttons-highlight";
+
+        //grab data from essay array
+        var initData = JSON.parse('<%-JSON.stringify(essayArray)%>')
+
+        //sort data
+        if(sortMethod == "date"){
+            initData.inProgress.sort(function (a,b) {
+                return a.date-b.date;
+            });
+            initData.reviewed.sort(function (a,b) {
+                return a.date-b.date;
+            });
+            document.getElementById("temp").innerHTML = initData.inProgress[0].title;
+        }
+        else  if(sortMethod == "name"){
+            initData.inProgress.sort(function (a,b) {
+                return a.title.toLowerCase() > b.title.toLowerCase();
+            });
+            initData.reviewed.sort(function (a,b) {
+                return a.title.toLowerCase() > b.title.toLowerCase();
+            });
+            document.getElementById("temp").innerHTML = initData.inProgress[0].title;
+        }
+        else{
+            initData.inProgress.sort(function (a,b) {
+                return a.subject.toLowerCase() > b.subject.toLowerCase();
+            });
+            initData.reviewed.sort(function (a,b) {
+                return a.subject.toLowerCase() > b.subject.toLowerCase();
+            });
+            document.getElementById("temp").innerHTML = initData.inProgress[0].title;
+        }
+    }
+
     </script>
 
 </head>
@@ -86,30 +128,53 @@
 
     <div id="uploaded" class="w3-container tab-area ">
         <div id="inProgress_area" class="uploaded_area">
-        <h1>Essays in Progress</h1>
-        <hr style="margin-top: -7px; border-width: 2px;">
-        <%for(var i =0; i < essayArray.length; i++){ %>
-            <div class="essay-box" style="float: left;">
-                <h4><%=essayArray[i].title%></h4>
-                <a href="/files/downloadFile?fileId=<%= essayArray[i].fileId %>">
-                    <img src='/images/essay_stockPhoto.png' height="200" width="150" >
-                </a>
-                <br>
-                <%=essayArray[i].status%>
-                <br>
-                <%=essayArray[i].subject%>
+            <h1>Essays in Progress</h1>
+            <div id = "sort-buttons-div">
+                <button id="name_button" class="sort-buttons" onclick="sortSection('name')"> Name</button>
+                <button id="date_button" class="sort-buttons  sort-buttons-highlight" onclick="sortSection('date')"> Date</button>
+                <button id="category_button" class="sort-buttons" onclick="sortSection('category')"> Category</button>
             </div>
-        <%}%>
+            <hr style="margin-top: -10px; border-width: 2px;">
+            <div id="temp"></div>
+            <%for(var i =0; i < essayArray.inProgress.length; i++){ %>
+                 <div class="essay-box" style="float: left;">
+                    <h4><%=essayArray.inProgress[i].title%></h4>
+                    <a href="/files/downloadFile?fileId=<%= essayArray.inProgress[i].fileId %>">
+                        <img src='/images/essay_stockPhoto.png' height="200" width="150" >
+                    </a>
+                    <br>
+                    <%=essayArray.inProgress[i].status%>
+                    <br>
+                    <%=essayArray.inProgress[i].subject%>
+                </div>
+            <%}%>
         </div>
         <div id="reviewed_area" class="uploaded_area" style="display:none">
             <h1>Reviewed Essays</h1>
-            <hr style="margin-top: -7px; border-width: 2px;">
+            <div id = "sort-buttons-div">
+                <button id="name_button" class="sort-buttons" onclick="sortSection('name')"> Name</button>
+                <button id="date_button" class="sort-buttons sort-buttons-highlight" onclick="sortSection('date')"> Date</button>
+                <button id="category_button" class="sort-buttons" onclick="sortSection('category')"> Category</button>
+            </div>
+            <hr style="margin-top: -10px; border-width: 2px;">
+            <%for(var i =0; i < essayArray.reviewed.length; i++){ %>
+            <div class="essay-box" style="float: left;">
+                <h4><%=essayArray.reviewed[i].title%></h4>
+                <a href="/files/downloadFile?fileId=<%= essayArray.reviewed[i].fileId %>">
+                    <img src='/images/essay_stockPhoto.png' height="200" width="150" >
+                </a>
+                <br>
+                <%=essayArray.reviewed[i].status%>
+                <br>
+                <%=essayArray.reviewed[i].subject%>
+            </div>
+            <%}%>
         </div>
     </div>
 
     <div id="upload" class="w3-container tab-area " style="display:none">
         <h2>Upload an Essay</h2>
-        <hr style="margin-top: -7px; border-width: 2px;">
+        <hr style="margin-top: -2px; border-width: 2px;">
         <div id="inner-left-box">
             <form action='/files/uploadFile' method='post' encType="multipart/form-data">
                 Essay Name: <input type="text" name="essayName"><br>
