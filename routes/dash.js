@@ -91,16 +91,6 @@ router.get('/', ensureAuthenticated, function(req, res, next) {
 
                     //add essay object to the array
                     if (ctr == user.uploadedEssayIds.length) {
-                            //sort arrays before rendering the page so that it is consistent
-                            essays.inProgress.sort(function (a,b) {
-                                return a.date-b.date;
-                                // return a.title.toLowerCase() > b.title.toLowerCase();
-                            });
-                            essays.reviewed.sort(function (a,b) {
-                                return a.date-b.date;
-                                //return a.title.toLowerCase() > b.title.toLowerCase();
-                            });
-
                             //render the page
                             res.render('dash', {title: 'Express', essayArray: essays});
                         }
