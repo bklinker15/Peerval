@@ -126,23 +126,42 @@
         }
         
         function showData() {
-            document.getElementById("display-essays").innerHTML = "";
+            document.getElementById("display-inprogress-essays").innerHTML = "";
 
             //scale background
             document.getElementById("tab-section").style.height =  initData.inProgress.length/4 * 70+"%";
 
             //add essay boxes
             for(var i =0; i < initData.inProgress.length; i++) {
-                document.getElementById("display-essays").innerHTML += ""
+                var essayTitle = initData.inProgress[i].title.length > 24 ? initData.inProgress[i].title.substring(0, 20) + "..." : initData.inProgress[i].title;
+                document.getElementById("display-inprogress-essays").innerHTML += ""
                     + "<div class='essay-box' style='float: left;'> "
                     + "    <a href='/files/downloadFile?fileId="+ initData.inProgress[i].fileId  +"'>"
-                    + "    <img src='/images/essay_stockPhoto.png' height='200' width='200' style='border: black solid 1px;'>"
+                    + "    <img src='/images/essay_stockPhoto.png' height='200' width='230' style='border: black solid 1px;'>"
                     + "    </a>"
                     + "    <div class='essay-info-box'>"
-                    + "        <h6>" + initData.inProgress[i].title.substring(0, 21) + "</h6>"
+                    + "        <h6>" + essayTitle + "</h6>"
 //                    + initData.inProgress[i].subject + "<br>"
                     + initData.inProgress[i].date + "<br>"
                     + initData.inProgress[i].status
+                    + "    </div> "
+                    + "</div >";
+            }
+
+            document.getElementById("display-reviewed-essays").innerHTML = "";
+
+            for(var i =0; i < initData.reviewed.length; i++) {
+                var essayTitle = initData.reviewed[i].title.length > 24 ? initData.reviewed[i].title.substring(0, 20) + "..." : initData.reviewed[i].title;
+                document.getElementById("display-reviewed-essays").innerHTML += ""
+                    + "<div class='essay-box' style='float: left;'> "
+                    + "    <a href='/files/downloadFile?fileId="+ initData.reviewed[i].fileId  +"'>"
+                    + "    <img src='/images/essay_stockPhoto.png' height='200' width='230' style='border: black solid 1px;'>"
+                    + "    </a>"
+                    + "    <div class='essay-info-box'>"
+                    + "        <h6>" + essayTitle + "</h6>"
+//                    + initData.inProgress[i].subject + "<br>"
+                    + initData.reviewed[i].date + "<br>"
+                    + initData.reviewed[i].status
                     + "    </div> "
                     + "</div >";
             }
@@ -174,38 +193,22 @@
     </div>
 
     <div id="uploaded" class="w3-container tab-area ">
+        <div id = "sort-buttons-div">
+            <button id="name_button" class="sort-buttons" onclick="sortSection('name')"> Name</button>
+            <button id="date_button" class="sort-buttons" onclick="sortSection('date')"> Date</button>
+            <button id="category_button" class="sort-buttons" onclick="sortSection('category')"> Category</button>
+        </div>
 
         <div id="inProgress_area" class="uploaded_area">
             <h1>Essays in Progress</h1>
-            <div id = "sort-buttons-div">
-                <button id="name_button" class="sort-buttons" onclick="sortSection('name')"> Name</button>
-                <button id="date_button" class="sort-buttons" onclick="sortSection('date')"> Date</button>
-                <button id="category_button" class="sort-buttons" onclick="sortSection('category')"> Category</button>
-            </div>
             <hr style="margin-top: -10px; border-width: 2px;">
-            <div id="display-essays"></div>
+            <div id="display-inprogress-essays"></div>
         </div>
 
         <div id="reviewed_area" class="uploaded_area" style="display:none">
             <h1>Reviewed Essays</h1>
-            <div id = "sort-buttons-div">
-                <button id="name_button" class="sort-buttons" onclick="sortSection('name')"> Name</button>
-                <button id="date_button" class="sort-buttons sort-buttons-highlight" onclick="sortSection('date')"> Date</button>
-                <button id="category_button" class="sort-buttons" onclick="sortSection('category')"> Category</button>
-            </div>
             <hr style="margin-top: -10px; border-width: 2px;">
-            <%for(var i =0; i < essayArray.reviewed.length; i++){ %>
-            <div class="essay-box" style="float: left;">
-                <h4><%=essayArray.reviewed[i].title%></h4>
-                <a href="/files/downloadFile?fileId=<%= essayArray.reviewed[i].fileId %>">
-                    <img src='/images/essay_stockPhoto.png' height="200" width="150" >
-                </a>
-                <br>
-                <%=essayArray.reviewed[i].status%>
-                <br>
-                <%=essayArray.reviewed[i].subject%>
-            </div>
-            <%}%>
+            <div id="display-reviewed-essays"></div>
         </div>
 
     </div>
