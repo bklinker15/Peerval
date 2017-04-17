@@ -129,11 +129,12 @@
             document.getElementById("display-inprogress-essays").innerHTML = "";
 
             //scale background
-            document.getElementById("tab-section").style.height =  initData.inProgress.length/4 * 70+"%";
+            document.getElementById("tab-section").style.height =  initData.inProgress.length/8 * 110+"%";
 
             //add essay boxes
             for(var i =0; i < initData.inProgress.length; i++) {
                 var essayTitle = initData.inProgress[i].title.length > 24 ? initData.inProgress[i].title.substring(0, 20) + "..." : initData.inProgress[i].title;
+                var essayDate = new Date(initData.inProgress[i].date);
                 document.getElementById("display-inprogress-essays").innerHTML += ""
                     + "<div class='essay-box' style='float: left;'> "
                     + "    <a href='/files/downloadFile?fileId="+ initData.inProgress[i].fileId  +"'>"
@@ -142,7 +143,7 @@
                     + "    <div class='essay-info-box'>"
                     + "        <h6>" + essayTitle + "</h6>"
 //                    + initData.inProgress[i].subject + "<br>"
-                    + initData.inProgress[i].date + "<br>"
+                    + "Submitted "+essayDate.toDateString().substring(3) + "<br>"
                     + initData.inProgress[i].status
                     + "    </div> "
                     + "</div >";
@@ -152,6 +153,7 @@
 
             for(var i =0; i < initData.reviewed.length; i++) {
                 var essayTitle = initData.reviewed[i].title.length > 24 ? initData.reviewed[i].title.substring(0, 20) + "..." : initData.reviewed[i].title;
+                var essayDate = new Date(initData.reviewed[i].date);
                 document.getElementById("display-reviewed-essays").innerHTML += ""
                     + "<div class='essay-box' style='float: left;'> "
                     + "    <a href='/files/downloadFile?fileId="+ initData.reviewed[i].fileId  +"'>"
@@ -160,7 +162,7 @@
                     + "    <div class='essay-info-box'>"
                     + "        <h6>" + essayTitle + "</h6>"
 //                    + initData.inProgress[i].subject + "<br>"
-                    + initData.reviewed[i].date + "<br>"
+                    + "Submitted "+essayDate.toDateString().substring(3) + "<br>"
                     + initData.reviewed[i].status
                     + "    </div> "
                     + "</div >";
@@ -218,15 +220,15 @@
         <hr style="margin-top: -2px; border-width: 2px;">
         <div id="inner-left-box">
             <form action='/files/uploadFile' method='post' encType="multipart/form-data">
-                Essay Name: <input type="text" name="essayName"><br>
-                Topic: <input type="text" name="topic"><br>
-                Page Length: <input type="text" name="pageLength" style="width: 30px;"> <br>
-                Prompt: <input type="text" name="prompt"> <br>
-                Priority: <input type="number" name="priority"> <br>
-                Reward: <input type="number" name="reward"> <br>
-                Department: <input type="text" name="classPrefix"> <br>
-                CourseID: <input type="number" name="classNumber"> <br>
-                Due Date: <input type="number" name="month"> | <input type="number" name="day"> | <input type="number" name="year"> <br>
+                <label> Essay Name: </label> <input type="text" name="essayName"><br>
+                <label>Topic: </label>  <input type="text" name="topic"><br>
+                <label>Page Length: </label> <input type="text" name="pageLength" style="width: 30px;"> <br>
+                <label>Prompt: </label> <input type="text" name="prompt"> <br>
+                <label>Priority: </label> <input type="range" name="priority" step="33"> <br>
+                <label>Reward: </label> <input type="number" name="reward"> <br>
+                <label>Department: </label> <input type="text" name="classPrefix" placeholder="eg. WRIT"> <br>
+                <label> CourseID: </label> <input type="number" name="classNumber" placeholder="eg. 150"> <br>
+                <label>Due Date: </label> <input type="date" name="date"> <br>
 
                 <input type="file" name="file" accept="">
                 <input type="submit" class="blue-btn" value="Upload">
