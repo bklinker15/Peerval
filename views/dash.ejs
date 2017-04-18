@@ -7,22 +7,37 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
     <script>
-    function openTab(evt, tabName) {
-    var i;
-    var x = document.getElementsByClassName("tab-area");
-    for (i = 0; i < x.length; i++) {
-    x[i].style.display = "none";
-    }
+        function getSearchResults(filters) {
+            var xhttp = new XMLHttpRequest();
+            var request = "/files/getEssayResults?reviewer=" + user._id;
+            for(var i = 0; i < Object.keys(filters).length; i++){
+                
+            }
 
-    var tablinks = document.getElementsByClassName("tab-link");
-        for(var k = 0; k < tablinks.length; k++){
-        tablinks[k].className = tablinks[k].className.replace(" highlight", "");
-    }
+            xhttp.open("POST", "/files/getEssayResults?" + titleKey + "=" +
+                title + "&" + ratingKey + "=" + rating, false);
+            xhttp.send();
 
-    evt.currentTarget.className += " highlight";
-    document.getElementById(tabName).style.display = "block";
+            if (xhttp.responseText.trim().length > 0) {
+                //add essays to table
+            }
+        }
 
-    }
+        function openTab(evt, tabName) {
+            var i;
+            var x = document.getElementsByClassName("tab-area");
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+
+            var tablinks = document.getElementsByClassName("tab-link");
+            for(var k = 0; k < tablinks.length; k++){
+                tablinks[k].className = tablinks[k].className.replace(" highlight", "");
+            }
+
+            evt.currentTarget.className += " highlight";
+            document.getElementById(tabName).style.display = "block";
+        }
     </script>
 
 </head>
@@ -47,7 +62,9 @@
     <div id="tab-bar" class="w3-bar">
         <button name="uploaded" class="tab-link highlight" onclick="openTab(event, 'uploaded')">Uploaded</button>
         <button name="upload" class="tab-link" onclick="openTab(event, 'upload')">Upload</button>
+        <% if(user.isReviewer){%>
         <button name="review" class="tab-link" onclick="openTab(event, 'review')">Review</button>
+        <%}%>
     </div>
 
     <div id="uploaded" class="w3-container tab-area w3-animate-right">
@@ -88,9 +105,33 @@
         </div>
     </div>
 
+
+    <%if (user.isReviewer){%>
     <div id="review" class="w3-container tab-area w3-animate-right" style="display:none">
         <h1>Review Center</h1>
+        <div id="search-container">
+            <div id="search-side-container" style="width: 200px;">
+                <p>Search Filters</p> <br>
+                Topic: <select name="topic" title="Topic">
+                    <option value="Engineering">Engineering</option>
+                    <option value="Social Sciences">Social Sciences</option>
+                </select> <br>
+                Page Length Min: <input style="width: 20px;"> <br>
+                Page Length Max <input style="width: 20px;"> <br>
+            </div>
+            <div id="results-container" style="position:absolute; left: 300px; top: 90px;">
+                <table>
+                    <th>
+                        <td></td>
+                        <td>Title</td>
+                        <td>Prompt</td>
+                    </th>
+                    <tr></tr>
+                </table>
+            </div>
+        </div>
     </div>
+    <%}%>
 
     <div id="side-box">
     </div>
