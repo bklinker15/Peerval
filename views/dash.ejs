@@ -23,81 +23,229 @@
             }
         }
 
-        function openTab(evt, tabName) {
-            var i;
-            var x = document.getElementsByClassName("tab-area");
-            for (i = 0; i < x.length; i++) {
-                x[i].style.display = "none";
+    function openTab(updateSection, tabName) {
+        //if this function was called by click on tab then update left panel
+        if(updateSection){
+            //if not in the uplaod area, un-highlight the left panel
+            if(tabName != "uploaded") {
+                var sidelinks = document.getElementsByClassName("side-link-button");
+                for (var k = 0; k < sidelinks.length; k++) {
+                    sidelinks[k].className = sidelinks[k].className.replace(" side-highlight", "");
+                }
             }
-
-            var tablinks = document.getElementsByClassName("tab-link");
-            for(var k = 0; k < tablinks.length; k++){
-                tablinks[k].className = tablinks[k].className.replace(" highlight", "");
+            else {
+                essaySection("inProgress");
             }
-
-            evt.currentTarget.className += " highlight";
-            document.getElementById(tabName).style.display = "block";
         }
+        //display the area associated with the tab just clicked
+        var i;
+        var x = document.getElementsByClassName("tab-area");
+        for (i = 0; i < x.length; i++) {
+         x[i].style.display = "none";
+        }
+
+        var tablinks = document.getElementsByClassName("tab-link");
+        for(var k = 0; k < tablinks.length; k++){
+            tablinks[k].className = tablinks[k].className.replace(" highlight", "");
+        }
+        document.getElementById(tabName+"_tab").className += " highlight";
+        document.getElementById(tabName).style.display = "block";
+
+    }
+
+
+    //functionality for button clicks on the left panel
+    function essaySection(sectionName){
+        //open the uploaded section first
+        openTab(false, 'uploaded');
+
+        //open section associated with this button
+        var i;
+        var x = document.getElementsByClassName("uploaded_area");
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+
+        var sidelinks = document.getElementsByClassName("side-link-button");
+        for(var k = 0; k < sidelinks.length; k++){
+            sidelinks[k].className = sidelinks[k].className.replace(" side-highlight", "");
+        }
+
+        document.getElementById(sectionName+"_button").className += " side-highlight";
+        document.getElementById(sectionName+"_area").style.display = "block";
+    }
+
+    //sort the files based on the sort method
+    function sortSection(sortMethod) {
+
+        var sortButtons = document.getElementsByClassName("sort-buttons");
+        for(var k = 0; k < sortButtons.length; k++){
+            sortButtons[k].className = sortButtons[k].className.replace(" sort-buttons-highlight", "");
+        }
+
+        document.getElementById(sortMethod+"_button").className += " sort-buttons-highlight";
+
+        //grab data from essay array
+        var initData = JSON.parse('<%-JSON.stringify(essayArray)%>')
+
+        //sort data
+        if(sortMethod == "date"){
+            initData.inProgress.sort(function (a,b) {
+                if (a.date.toLowerCase() < b.date.toLowerCase())
+                    return 1;
+                if (a.date.toLowerCase() > b.date.toLowerCase())
+                    return -1;
+                return 0;
+            });
+            initData.reviewed.sort(function (a,b) {
+                if (a.date.toLowerCase() < b.date.toLowerCase())
+                    return 1;
+                if (a.date.toLowerCase() > b.date.toLowerCase())
+                    return -1;
+                return 0;
+            });
+            showData();
+        }
+        else  if(sortMethod == "name"){
+            initData.inProgress.sort(function (a,b) {
+                if (a.title.toLowerCase() > b.title.toLowerCase())
+                    return 1;
+                if (a.title.toLowerCase() < b.title.toLowerCase())
+                    return -1;
+                return 0;
+            });
+            initData.reviewed.sort(function (a,b) {
+                if (a.title.toLowerCase() > b.title.toLowerCase())
+                    return 1;
+                if (a.title.toLowerCase() < b.title.toLowerCase())
+                    return -1;
+                return 0;
+            });
+            showData();
+        }
+        else{
+            initData.inProgress.sort(function (a,b) {
+                if (a.subject.toLowerCase() > b.subject.toLowerCase())
+                    return 1;
+                if (a.subject.toLowerCase() < b.subject.toLowerCase())
+                    return -1;
+                return 0;
+            });
+            initData.reviewed.sort(function (a,b) {
+                if (a.subject.toLowerCase() > b.subject.toLowerCase())
+                    return 1;
+                if (a.subject.toLowerCase() < b.subject.toLowerCase())
+                    return -1;
+                return 0;
+            });
+            showData();
+        }
+        
+        function showData() {
+            document.getElementById("display-inprogress-essays").innerHTML = "";
+
+            //scale background
+            document.getElementById("tab-section").style.height =  initData.inProgress.length/8 * 110+"%";
+
+            //add essay boxes
+            for(var i =0; i < initData.inProgress.length; i++) {
+                var essayTitle = initData.inProgress[i].title.length > 24 ? initData.inProgress[i].title.substring(0, 20) + "..." : initData.inProgress[i].title;
+                var essayDate = new Date(initData.inProgress[i].date);
+                document.getElementById("display-inprogress-essays").innerHTML += ""
+                    + "<div class='essay-box' style='float: left;'> "
+                    + "    <a href='/files/downloadFile?fileId="+ initData.inProgress[i].fileId  +"'>"
+                    + "    <img src='/images/essay_stockPhoto.png' height='200' width='230' style='border: black solid 1px;'>"
+                    + "    </a>"
+                    + "    <div class='essay-info-box'>"
+                    + "        <h6>" + essayTitle + "</h6>"
+//                    + initData.inProgress[i].subject + "<br>"
+                    + "Submitted "+essayDate.toDateString().substring(3) + "<br>"
+                    + initData.inProgress[i].status
+                    + "    </div> "
+                    + "</div >";
+            }
+
+            document.getElementById("display-reviewed-essays").innerHTML = "";
+
+            for(var i =0; i < initData.reviewed.length; i++) {
+                var essayTitle = initData.reviewed[i].title.length > 24 ? initData.reviewed[i].title.substring(0, 20) + "..." : initData.reviewed[i].title;
+                var essayDate = new Date(initData.reviewed[i].date);
+                document.getElementById("display-reviewed-essays").innerHTML += ""
+                    + "<div class='essay-box' style='float: left;'> "
+                    + "    <a href='/files/downloadFile?fileId="+ initData.reviewed[i].fileId  +"'>"
+                    + "    <img src='/images/essay_stockPhoto.png' height='200' width='230' style='border: black solid 1px;'>"
+                    + "    </a>"
+                    + "    <div class='essay-info-box'>"
+                    + "        <h6>" + essayTitle + "</h6>"
+//                    + initData.inProgress[i].subject + "<br>"
+                    + "Submitted "+essayDate.toDateString().substring(3) + "<br>"
+                    + initData.reviewed[i].status
+                    + "    </div> "
+                    + "</div >";
+            }
+        }
+    }
     </script>
 
 </head>
-<body>
+<body onload="sortSection('name')" >
 <header>
     <% include ../partials/navbar%>
 </header>
 
 <div id="tab-side">
-    <button class="blue-btn" id="upload-btn">Upload</button> <br>
+    <button type="image" class="blue-btn" id="upload-btn" onclick="openTab(true, 'upload')"></button> <br>
     <div id="side-links">
-        <div class="side-link-bg side-highlight">
-        <a>Essays in progress</a>
-        </div>
-        <div class="side-link-bg" style="margin-top: 3px">
-            <a>Reviewed Essays</a>
-        </div>
+        &nbsp; ESSAYS
+        <button id="inProgress_button" class="side-link-button side-highlight" onclick="essaySection('inProgress')"> Essays in progress </button>
+        <button id="reviewed_button" class="side-link-button " onclick="essaySection('reviewed')"> Reviewed Essays </button>
     </div>
 </div>
 
 <div id="tab-section">
     <div id="tab-bar" class="w3-bar">
-        <button name="uploaded" class="tab-link highlight" onclick="openTab(event, 'uploaded')">Uploaded</button>
-        <button name="upload" class="tab-link" onclick="openTab(event, 'upload')">Upload</button>
+        <button name="uploaded" id="uploaded_tab" class="tab-link highlight" onclick="openTab(true, 'uploaded')">Uploaded</button>
+        <button name="upload" id="upload_tab" class="tab-link" onclick="openTab(true, 'upload')">Upload</button>
         <% if(user.isReviewer){%>
-        <button name="review" class="tab-link" onclick="openTab(event, 'review')">Review</button>
+        <button name="review" id="review_tab" class="tab-link" onclick="openTab(true, 'review')">Review Essays</button>
         <%}%>
     </div>
 
-    <div id="uploaded" class="w3-container tab-area w3-animate-right">
-        <h1>Essays in Progress</h1>
-        <%for(var i =0; i < essayArray.length; i++){ %>
-            <div class="essay-box" style="float: left;">
-                <h4><%=essayArray[i].title%></h4>
+    <div id="uploaded" class="w3-container tab-area ">
+        <div id = "sort-buttons-div">
+            <button id="name_button" class="sort-buttons" onclick="sortSection('name')"> Name</button>
+            <button id="date_button" class="sort-buttons" onclick="sortSection('date')"> Date</button>
+            <button id="category_button" class="sort-buttons" onclick="sortSection('category')"> Category</button>
+        </div>
 
+        <div id="inProgress_area" class="uploaded_area">
+            <h1>Essays in Progress</h1>
+            <hr style="margin-top: -10px; border-width: 2px;">
+            <div id="display-inprogress-essays"></div>
+        </div>
 
-                <a href="/files/downloadFile?fileId=<%= essayArray[i].fileId %>">
-                    <img src='/images/essay_stockPhoto.png' height="200" width="150" >
-                </a>
-                <br>
-                <%=essayArray[i].status%>
-                <br>
-                <%=essayArray[i].subject%>
-            </div>
-        <%}%>
+        <div id="reviewed_area" class="uploaded_area" style="display:none">
+            <h1>Reviewed Essays</h1>
+            <hr style="margin-top: -10px; border-width: 2px;">
+            <div id="display-reviewed-essays"></div>
+        </div>
+
     </div>
 
-    <div id="upload" class="w3-container tab-area  w3-animate-right" style="display:none">
+    <div id="upload" class="w3-container tab-area " style="display:none">
         <h2>Upload an Essay</h2>
+        <hr style="margin-top: -2px; border-width: 2px;">
         <div id="inner-left-box">
             <form action='/files/uploadFile' method='post' encType="multipart/form-data">
-                Essay Name: <input type="text" name="essayName"><br>
-                Topic: <input type="text" name="topic"><br>
-                Page Length: <input type="text" name="pageLength" style="width: 30px;"> <br>
-                Prompt: <input type="text" name="prompt"> <br>
-                Priority: <input type="number" name="priority"> <br>
-                Reward: <input type="number" name="reward"> <br>
-                Department: <input type="text" name="classPrefix"> <br>
-                CourseID: <input type="number" name="classNumber"> <br>
-                Due Date: <input type="number" name="month"> | <input type="number" name="day"> | <input type="number" name="year"> <br>
+                <label> Essay Name: </label> <input type="text" name="essayName"><br>
+                <label>Topic: </label>  <input type="text" name="topic"><br>
+                <label>Page Length: </label> <input type="text" name="pageLength" style="width: 30px;"> <br>
+                <label>Prompt: </label> <input type="text" name="prompt"> <br>
+                <label>Priority: </label> <input type="range" name="priority" step="33"> <br>
+                <label>Reward: </label> <input type="number" name="reward"> <br>
+                <label>Department: </label> <input type="text" name="classPrefix" placeholder="eg. WRIT"> <br>
+                <label> CourseID: </label> <input type="number" name="classNumber" placeholder="eg. 150"> <br>
+                <label>Due Date: </label> <input type="date" name="date"> <br>
 
                 <input type="file" name="file" accept="">
                 <input type="submit" class="blue-btn" value="Upload">
@@ -107,7 +255,7 @@
 
 
     <%if (user.isReviewer){%>
-    <div id="review" class="w3-container tab-area w3-animate-right" style="display:none">
+    <div id="review" class="w3-container tab-area " style="display:none">
         <h1>Review Center</h1>
         <div id="search-container">
             <div id="search-side-container" style="width: 200px;">

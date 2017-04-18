@@ -21,7 +21,8 @@ var EssaySchema = mongoose.Schema({
     classPrefix: String,
     classLevel: Number,
     title: String,
-    rewardAmt: Number
+    rewardAmt: Number,
+    wordCount: Number
 });
 
 var Essay = module.exports = mongoose.model('Essay', EssaySchema);

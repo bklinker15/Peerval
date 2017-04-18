@@ -45,7 +45,7 @@ router.post('/uploadFile', function(req, res, next) {
                         reviewerId: "",
                         uploadDate: new Date(),
 
-                        dueDate: new Date(req.body.year, req.body.month, req.body.day),
+                        dueDate: new Date(req.body.date),
                         prompt: req.body.prompt,
                         pageLength: req.body.pageLength,
                         subject: req.body.topic,

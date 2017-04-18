@@ -9,16 +9,19 @@ router.get('/', ensureAuthenticated, function(req, res, next) {
     var User = require('../models/user')
     var Essay = require('../models/essay');
 
-    var essays = [];
+    var essays = {
+        inProgress: [],
+        reviewed: []
+    };
     //find the user
     User.findById(req.user._id, function (err, user) {
         if (err) return handleError(err);
-        //loop through all the essay IDs for this user
-       // for( var essayID = 0; essayID< user.uploadedEssayIds.length(); essayID++){
         if(user.uploadedEssayIds.length==0){
             res.render('dash', { title: 'Express' , essayArray: essays});
         }else {
             var ctr = 0;
+            //loop through all the essay IDs for this user
+            // for( var essayID = 0; essayID< user.uploadedEssayIds.length(); essayID++){
             user.uploadedEssayIds.forEach(function (essayID) {
 
                 //find the essay
@@ -65,17 +68,30 @@ router.get('/', ensureAuthenticated, function(req, res, next) {
                     //         res.render('dash', {title: 'Express', essayArray: essays});
                     //     }
                     // }
-
-                        //add essay object to the array
-                        essays.push({
-                            title: essay.title,
-                            fileId: essay.fileId,
-                            status: essay.status,
-                            date: essay.uploadDate,
-                            subject: essay.subject
-                        });
+                        //add to different arrays based on status
+                        if(essay.status == 'Not_Reviewed' || essay.status == "In_Review") {
+                            essays.inProgress.push({
+                                title: essay.title,
+                                fileId: essay.fileId,
+                                status: essay.status,
+                                date: essay.uploadDate,
+                                subject: essay.subject
+                            });
+                        }
+                        else{  //reviewed
+                            essays.reviewed.push({
+                                title: essay.title,
+                                fileId: essay.fileId,
+                                status: essay.status,
+                                date: essay.uploadDate,
+                                subject: essay.subject
+                            });
+                        }
                         ctr++;
-                        if (ctr == user.uploadedEssayIds.length) {
+
+                    //add essay object to the array
+                    if (ctr == user.uploadedEssayIds.length) {
+                            //render the page
                             res.render('dash', {title: 'Express', essayArray: essays});
                         }
                 });
