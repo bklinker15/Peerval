@@ -5,17 +5,25 @@ var LocalStrategy = require('passport-local').Strategy;
 var User = require('../models/user');
 var Reviewer = require('../models/reviewer');
 
+function ensureNotLoggedIn(req, res, next){
+    if(!req.isAuthenticated()){
+        return next();
+    }else{
+        //logged in so direct to dash board
+        res.redirect('/dash');
+    }
+}
 
 /* GET users listing. */
 //signup
-router.get('/signup', function(req, res, next) {
+router.get('/signup', ensureNotLoggedIn, function(req, res, next) {
   res.render('signup', {
       errors : null
   });
 });
 
 //login
-router.get('/login', function(req, res, next) {
+router.get('/login', ensureNotLoggedIn, function(req, res, next) {
     res.render('login', {
         errors : null
     });
