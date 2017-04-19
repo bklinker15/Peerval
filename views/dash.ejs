@@ -7,6 +7,22 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
     <script>
+        function getSearchResults(filters) {
+            var xhttp = new XMLHttpRequest();
+            var request = "/files/getEssayResults?reviewer=" + user._id;
+            for(var i = 0; i < Object.keys(filters).length; i++){
+                
+            }
+
+            xhttp.open("POST", "/files/getEssayResults?" + titleKey + "=" +
+                title + "&" + ratingKey + "=" + rating, false);
+            xhttp.send();
+
+            if (xhttp.responseText.trim().length > 0) {
+                //add essays to table
+            }
+        }
+
     function openTab(updateSection, tabName) {
         //if this function was called by click on tab then update left panel
         if(updateSection){
@@ -169,7 +185,6 @@
             }
         }
     }
-
     </script>
 
 </head>
@@ -191,7 +206,9 @@
     <div id="tab-bar" class="w3-bar">
         <button name="uploaded" id="uploaded_tab" class="tab-link highlight" onclick="openTab(true, 'uploaded')">Uploaded</button>
         <button name="upload" id="upload_tab" class="tab-link" onclick="openTab(true, 'upload')">Upload</button>
+        <% if(user.isReviewer){%>
         <button name="review" id="review_tab" class="tab-link" onclick="openTab(true, 'review')">Review Essays</button>
+        <%}%>
     </div>
 
     <div id="uploaded" class="w3-container tab-area ">
@@ -236,9 +253,33 @@
         </div>
     </div>
 
+
+    <%if (user.isReviewer){%>
     <div id="review" class="w3-container tab-area " style="display:none">
         <h1>Review Center</h1>
+        <div id="search-container">
+            <div id="search-side-container" style="width: 200px;">
+                <p>Search Filters</p> <br>
+                Topic: <select name="topic" title="Topic">
+                    <option value="Engineering">Engineering</option>
+                    <option value="Social Sciences">Social Sciences</option>
+                </select> <br>
+                Page Length Min: <input style="width: 20px;"> <br>
+                Page Length Max <input style="width: 20px;"> <br>
+            </div>
+            <div id="results-container" style="position:absolute; left: 300px; top: 90px;">
+                <table>
+                    <th>
+                        <td></td>
+                        <td>Title</td>
+                        <td>Prompt</td>
+                    </th>
+                    <tr></tr>
+                </table>
+            </div>
+        </div>
     </div>
+    <%}%>
 
     <div id="side-box">
     </div>
