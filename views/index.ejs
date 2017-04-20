@@ -45,11 +45,21 @@
               scrollUp=0;
               console.log("slide"+slide);
               $( document ).ready(function() {
-                  $('html, body').animate({
-                      scrollTop: $("#div"+slide).offset().top}, 400, function () {
-                      scrollDown =0;
-                      scrollUp=0
-                  });
+                  if(slide == 0){ //scroll to top for first slide
+                      $('html, body').animate({
+                          scrollTop: $('body').offset().top}, 400, function () {
+                          scrollDown =0;
+                          scrollUp=0
+                      });
+                  }
+                  else {
+                      $('html, body').animate({
+                          scrollTop: $("#div" + slide).offset().top
+                      }, 400, function () {
+                          scrollDown = 0;
+                          scrollUp = 0
+                      });
+                  }
               });
           }
 
@@ -61,7 +71,7 @@
       <a id="signup-button" href="/users/signup" >Sign Up</a>
     </div>
     <div id="div0">
-      <div id="graphic" style="position: relative; padding-bottom: 30px; margin-top: -30px">
+      <div id="graphic" style="position: relative; padding-bottom: 30px; margin-top: -20px">
         <img id="landing-img"src="/images/landing.png" alt="Image could not be loaded">
       </div>
     </div>
