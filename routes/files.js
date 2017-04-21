@@ -48,7 +48,7 @@ router.post('/uploadFile', function(req, res, next) {
                         dueDate: new Date(req.body.date),
                         prompt: req.body.prompt,
                         pageLength: req.body.pageLength,
-                        subject: req.body.topic,
+                        topic: req.body.topic,
                         classPrefix: req.body.classPrefix,
                         classLevel: req.body.classNumber,
                         title: req.body.essayName,

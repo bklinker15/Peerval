@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs');
 
 
-//User schema
+//essay schema
 var EssaySchema = mongoose.Schema({
     authorEmail:String,
     authorId: String,
@@ -17,7 +17,7 @@ var EssaySchema = mongoose.Schema({
     dueDate: Date,
     prompt: String,
     pageLength: Number,
-    subject: String,
+    topic: String,
     classPrefix: String,
     classLevel: Number,
     title: String,
@@ -26,3 +26,11 @@ var EssaySchema = mongoose.Schema({
 });
 
 var Essay = module.exports = mongoose.model('Essay', EssaySchema);
+
+module.exports.getEssayById = function(id, callback){
+    Essay.findById(id, callback);
+};
+
+module.exports.getReviewableEssaysByTopic = function(topic, callback){
+    Essay.find({topic: topic, status: "Not_Reviewed", "_id": {$ne: user.id}}, callback);
+};

@@ -240,13 +240,22 @@
         <div id="inner-left-box">
             <form action='/files/uploadFile' method='post' encType="multipart/form-data">
                 <label> Essay Name: </label> <input type="text" name="essayName"><br>
-                <label>Topic: </label>  <input type="text" name="topic"><br>
+                <label> Topic:</label><select name="topic"> <br />
+                    <option value="default" selected="selected"></option>
+                    <option value="engineering">Engineering</option>
+                    <option value="social-sciences">Social Sciences</option>
+                    <option value="business">Business</option>
+                    <option value="physical-sciences">Physical Sciences</option>
+                    <option value="music">Music</option>
+                    <option value="art">Art</option>
+                    <option value="cinematic-arts">Cinematic Arts</option>
+                </select><br />
                 <label>Page Length: </label> <input type="text" name="pageLength" style="width: 30px;"> <br>
                 <label>Prompt: </label> <input type="text" name="prompt"> <br>
-                <label>Priority: </label> <input type="range" name="priority" step="33"> <br>
+                <label>Priority: </label> <input type="number" name="priority"> <br>
                 <label>Reward: </label> <input type="number" name="reward"> <br>
                 <label>Department: </label> <input type="text" name="classPrefix" placeholder="eg. WRIT"> <br>
-                <label> CourseID: </label> <input type="number" name="classNumber" placeholder="eg. 150"> <br>
+                <label>CourseID: </label> <input type="number" name="classNumber" placeholder="eg. 150"> <br>
                 <label>Due Date: </label> <input type="date" name="date"> <br>
 
                 <input type="file" name="file" accept="">
