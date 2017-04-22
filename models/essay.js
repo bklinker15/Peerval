@@ -31,6 +31,6 @@ module.exports.getEssayById = function(id, callback){
     Essay.findById(id, callback);
 };
 
-module.exports.getReviewableEssaysByTopic = function(topic, callback){
-    Essay.find({topic: topic, status: "Not_Reviewed", "_id": {$ne: user.id}}, callback);
+module.exports.getReviewableEssaysByTopic = function(callback){
+    Essay.find({status: "Not_Reviewed"}, callback);
 };

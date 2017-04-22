@@ -107,4 +107,64 @@ router.get('/downloadFile', function(req, res, next){
     );
 });
 
+
+router.post("/acceptReview", function(req, res, next){
+    var google = require('googleapis');
+    var drive = google.drive({ version: 'v2', auth: global.myGoogleAuth });
+    var fileId = req.query.fileId;
+    var downloadLink = 'https://docs.google.com/feeds/download/documents/export/Export?id='+fileId+'&exportFormat=docx';
+    //provide temporary permissions to the user
+    drive.permissions.insert({
+            'fileId': fileId,
+            'resource': {
+                "role": "reader",
+                "type": "anyone",   //can change to a specific user
+                "additionalRoles": [
+                    "commenter"
+                ]
+            }
+        }, function (err, resp, body) {
+            if (err) {
+                // Handle error
+                console.log(err);
+            }
+            else {
+                res.redirect(downloadLink); //download the file
+                //delete permissions
+                drive.permissions.delete({
+                    'fileId': fileId,
+                    'permissionId': 'anyone'
+                })
+            }
+        }
+    );
+});
+
+
+
+
+//AJAX endpoint for get reviewable essays for table
+router.post("/getSearchResults", function(req, res, next) {
+    Essay.getReviewableEssaysByTopic(function(err, reviewableEssays){
+        var essays = [];
+        reviewableEssays.forEach(function(essay) {
+            essays.push({
+                title: essay.title,
+                prompt: essay.prompt,
+                status: essay.status,
+                GDalternateLink: essay.GDalternateLink,
+                priority: essay.priority,
+                uploadDate: essay.uploadDate,
+                dueDate: essay.dueDate,
+                topic: essay.topic,
+                classPrefix: essay.classPrefix,
+                classLevel: essay.classLevel,
+                rewardAmt: essay.rewardAmt, //TODO: calc reward amount w formula
+                wordCount: essay.wordCount
+            })
+        })
+        res.send(essays);
+    });
+});
+
 module.exports = router;

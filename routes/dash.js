@@ -6,7 +6,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', ensureAuthenticated, function(req, res, next) {
-    var User = require('../models/user')
+    var User = require('../models/user');
     var Essay = require('../models/essay');
 
     var essays = {
