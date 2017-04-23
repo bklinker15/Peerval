@@ -62,7 +62,7 @@ router.post('/uploadFile', function(req, res, next) {
 
                         user.uploadedEssayIds.push(newEssay._id);
                         user.save(function (err, updatedUser) {
-                            if (err) console.log(err);;
+                            if (err) console.log(err);
                         });
                     });
                 }
@@ -79,7 +79,6 @@ router.get('/downloadFile', function(req, res, next){
     var google = require('googleapis');
     var drive = google.drive({ version: 'v2', auth: global.myGoogleAuth });
     var fileId = req.query.fileId;
-    console.log(fileId);
     var downloadLink = 'https://docs.google.com/feeds/download/documents/export/Export?id='+fileId+'&exportFormat=docx';
     //provide temporary permissions to the user
     drive.permissions.insert({
@@ -113,7 +112,6 @@ router.get("/acceptReview", function(req, res, next){
     var google = require('googleapis');
     var drive = google.drive({ version: 'v2', auth: global.myGoogleAuth });
     var fileId = req.query.fileId;
-    console.log(fileId);
     var reviewLink = 'https://docs.google.com/document/d/' + fileId + '/edit?usp=drivesdk';
     //provide temporary permissions to the user
     drive.permissions.insert({
