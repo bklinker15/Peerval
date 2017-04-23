@@ -29,21 +29,20 @@
                         title.innerHTML = essay.title;
                         div.appendChild(title);
                         var prompt = document.createElement("p");
-                        prompt.innerHTML = essay.GDalternateLink;
+                        prompt.innerHTML = essay.prompt;
                         div.appendChild(prompt);
                         var accept = document.createElement("button");
-                        accept.id = "accept-button";
                         accept.classList.add("side-button");
+                        accept.classList.add("accept-button");
 
                         var buttonDiv = document.createElement("div");
                         buttonDiv.classList.add("side-buttons");
                         var reward = document.createElement("button");
-                        reward.id = "reward-buton";
+                        reward.classList.add("reward-button");
                         reward.classList.add("side-button");
                         var seeMore = document.createElement("button");
-                        seeMore.id = "seeMore-button"
                         seeMore.classList.add("side-button");
-                        reward.innerHTML = essay.rewardAmt;
+                        reward.innerHTML = "$" + essay.rewardAmt;
                         seeMore.innerHTML = "↓ See More"
                         accept.innerHTML = "Accept Review";
                         accept.onclick = function() { openLinkNewWindow('/files/acceptReview?fileId=' + essay.fileId)};
