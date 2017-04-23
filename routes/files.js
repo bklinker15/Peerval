@@ -79,6 +79,7 @@ router.get('/downloadFile', function(req, res, next){
     var google = require('googleapis');
     var drive = google.drive({ version: 'v2', auth: global.myGoogleAuth });
     var fileId = req.query.fileId;
+    console.log(fileId);
     var downloadLink = 'https://docs.google.com/feeds/download/documents/export/Export?id='+fileId+'&exportFormat=docx';
     //provide temporary permissions to the user
     drive.permissions.insert({
@@ -108,11 +109,12 @@ router.get('/downloadFile', function(req, res, next){
 });
 
 
-router.post("/acceptReview", function(req, res, next){
+router.get("/acceptReview", function(req, res, next){
     var google = require('googleapis');
     var drive = google.drive({ version: 'v2', auth: global.myGoogleAuth });
     var fileId = req.query.fileId;
-    var downloadLink = 'https://docs.google.com/feeds/download/documents/export/Export?id='+fileId+'&exportFormat=docx';
+    console.log(fileId);
+    var reviewLink = 'https://docs.google.com/document/d/' + fileId + '/edit?usp=drivesdk';
     //provide temporary permissions to the user
     drive.permissions.insert({
             'fileId': fileId,
@@ -129,12 +131,13 @@ router.post("/acceptReview", function(req, res, next){
                 console.log(err);
             }
             else {
-                res.redirect(downloadLink); //download the file
+                res.redirect(reviewLink); //view file
+
                 //delete permissions
-                drive.permissions.delete({
-                    'fileId': fileId,
-                    'permissionId': 'anyone'
-                })
+                // drive.permissions.delete({
+                //     'fileId': fileId,
+                //     'permissionId': 'anyone'
+                // })
             }
         }
     );
@@ -149,6 +152,7 @@ router.post("/getSearchResults", function(req, res, next) {
         var essays = [];
         reviewableEssays.forEach(function(essay) {
             essays.push({
+                fileId: essay.fileId,
                 title: essay.title,
                 prompt: essay.prompt,
                 status: essay.status,

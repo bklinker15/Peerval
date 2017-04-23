@@ -31,7 +31,7 @@
                         var prompt = document.createElement("p");
                         prompt.innerHTML = essay.GDalternateLink;
                         div.appendChild(prompt);
-                        var accept = document.createElement("button");
+                        var accept = document.createElement("a");
                         accept.id = "accept-button";
                         accept.classList.add("side-button");
 
@@ -46,6 +46,7 @@
                         reward.innerHTML = essay.rewardAmt;
                         seeMore.innerHTML = "↓ See More"
                         accept.innerHTML = "Accept Review";
+                        accept.href = "/files/acceptReview?fileId=" + essay.fileId;
 
                         buttonDiv.appendChild(reward);
                         buttonDiv.appendChild(document.createElement("br"));
