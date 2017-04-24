@@ -95,7 +95,6 @@ router.get('/', ensureAuthenticated, function(req, res, next) {
                             res.render('dash', {title: 'Express', essayArray: essays});
                         }
                 });
-
             });
         }
     });

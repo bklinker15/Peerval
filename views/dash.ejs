@@ -42,14 +42,21 @@
                         reward.classList.add("side-button");
                         var seeMore = document.createElement("button");
                         seeMore.classList.add("side-button");
+                        seeMore.classList.add("accept-button");
                         reward.innerHTML = "$" + essay.rewardAmt;
                         seeMore.innerHTML = "↓ See More"
                         accept.innerHTML = "Accept Review";
-                        accept.onclick = function() { openLinkNewWindow('/files/acceptReview?fileId=' + essay.fileId)};
+                        accept.onclick = function() { openLinkNewWindow('/files/acceptReview?fileId=' + essay.fileId + "&id=" + essay.id)};
+                        var done = document.createElement("button");
+                        done.innerHTML = "Submit Review";
+                        done.classList.add("side-button");
+                        done.onclick = function() { submitReview(essay.id)};
+
 
                         buttonDiv.appendChild(reward);
                         buttonDiv.appendChild(document.createElement("br"));
                         buttonDiv.appendChild(accept);
+                        buttonDiv.appendChild(done);
                         buttonDiv.appendChild(document.createElement("br"));
                         buttonDiv.appendChild(seeMore)
                         div.append(buttonDiv);
@@ -57,6 +64,16 @@
 
                         container.appendChild(div);
                     })
+                }
+            });
+        }
+
+        function submitReview(id) {
+            $.ajax({
+                type: "POST",
+                url: "/files/submitReview?id=" + id,
+                success: function(result){
+
                 }
             });
         }
