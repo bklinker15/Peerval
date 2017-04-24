@@ -210,7 +210,7 @@
             for(var i =0; i < initData.reviewed.length; i++) {
                 var essayTitle = initData.reviewed[i].title.length > 24 ? initData.reviewed[i].title.substring(0, 24) + "..." : initData.reviewed[i].title;
                 var essayDate = new Date(initData.reviewed[i].date);
-                var downloadLink = '/files/downloadFile?fileId='+ initData.inProgress[i].fileId;
+                var downloadLink = '/files/downloadFile?fileId='+ initData.reviewed[i].fileId;
                 document.getElementById("display-reviewed-essays").innerHTML += ""
                     + "<div class='essay-box' style='float: left;'> "
                     + "    <img src='/images/essay_paper.png' height='200' width='230'>"
@@ -220,7 +220,7 @@
                     + "         <img src='/images/icons/clock-grey.png'>"
                     + "         <div style='display: inline-block; text-align:center; width: 100%; '>"
                     + "             Submitted "+essayDate.toDateString().substring(3) + "<br>"
-                    +               status
+                    +               initData.inProgress[i].status
                     + "         </div>"
                     +"     </div> "
                     +"     <div>"
