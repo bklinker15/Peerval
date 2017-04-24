@@ -42,14 +42,21 @@
                         reward.classList.add("side-button");
                         var seeMore = document.createElement("button");
                         seeMore.classList.add("side-button");
+                        seeMore.classList.add("accept-button");
                         reward.innerHTML = "$" + essay.rewardAmt;
                         seeMore.innerHTML = "↓ See More"
                         accept.innerHTML = "Accept Review";
-                        accept.onclick = function() { openLinkNewWindow('/files/acceptReview?fileId=' + essay.fileId)};
+                        accept.onclick = function() { openLinkNewWindow('/files/acceptReview?fileId=' + essay.fileId + "&id=" + essay.id)};
+                        var done = document.createElement("button");
+                        done.innerHTML = "Submit Review";
+                        done.classList.add("side-button");
+                        done.onclick = function() { submitReview(essay.id)};
+
 
                         buttonDiv.appendChild(reward);
                         buttonDiv.appendChild(document.createElement("br"));
                         buttonDiv.appendChild(accept);
+                        buttonDiv.appendChild(done);
                         buttonDiv.appendChild(document.createElement("br"));
                         buttonDiv.appendChild(seeMore)
                         div.append(buttonDiv);
@@ -57,6 +64,16 @@
 
                         container.appendChild(div);
                     })
+                }
+            });
+        }
+
+        function submitReview(id) {
+            $.ajax({
+                type: "POST",
+                url: "/files/submitReview?id=" + id,
+                success: function(result){
+
                 }
             });
         }
@@ -304,7 +321,7 @@
         <h1>Upload an Essay</h1>
         <hr style="margin-top: -10px; border-width: 2px;">
         <div id="inner-left-box">
-            <form action='/files/uploadFile' method='post' encType="multipart/form-data">
+            <form id="upload-form" name="upload-form" action='/files/uploadFile' method='post' encType="multipart/form-data">
                 <h6>ESSAY </h6>
                 <label> Essay Name: </label> <input type="text" name="essayName"><br>
                 <label> Topic:</label><select name="topic"> <br />
@@ -317,11 +334,13 @@
                     <option value="art">Art</option>
                     <option value="cinematic-arts">Cinematic Arts</option>
                 </select><br />
+                <label>Prompt: </label> <textarea form="upload-form" rows=4 cols=35 name="prompt"></textarea> <br>
                 <label>Page Length: </label> <input type="text" name="pageLength" style="width: 30px;"> <br>
-                <label>Prompt: </label> <input type="text" name="prompt"> <br>
                 <br>
                 <h6>PAYMENT </h6>
-                <label>Priority: </label> <input type="number" name="priority" step="33"> <br>
+                <label>Priority: </label><br>
+                    <input type="radio" name="priority" value="1" checked>Normal<br>
+                    <input type="radio" name="priority" value="2">High<br>
                 <label>Due Date: </label> <input type="date" name="date"> <br>
                 <label>Reward: </label> <input type="number" name="reward"> <br>
                 <br>
@@ -352,7 +371,7 @@
                 </select> <br>
                 Page Length Min: <input style="width: 20px;"> <br>
                 Page Length Max <input style="width: 20px;"> <br>
-                <button name="apply-filter" onclick="getSearchResults()">Apply filter</button>
+                <button name="apply-filter" class="accept-button" onclick="getSearchResults()">Apply filter</button>
             </div>
             <div id="results-container">
 

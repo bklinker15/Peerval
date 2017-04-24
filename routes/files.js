@@ -112,33 +112,43 @@ router.get("/acceptReview", function(req, res, next){
     var google = require('googleapis');
     var drive = google.drive({ version: 'v2', auth: global.myGoogleAuth });
     var fileId = req.query.fileId;
+    var id = req.query.id;
     var reviewLink = 'https://docs.google.com/document/d/' + fileId + '/edit?usp=drivesdk';
-    //provide temporary permissions to the user
-    drive.permissions.insert({
-            'fileId': fileId,
-            'resource': {
-                "role": "reader",
-                "type": "anyone",   //can change to a specific user
-                "additionalRoles": [
-                    "commenter"
-                ]
-            }
-        }, function (err, resp, body) {
-            if (err) {
-                // Handle error
-                console.log(err);
-            }
-            else {
-                res.redirect(reviewLink); //view file
 
-                //delete permissions
-                // drive.permissions.delete({
-                //     'fileId': fileId,
-                //     'permissionId': 'anyone'
-                // })
-            }
+    //mark essay as in progress
+    Essay.markEssayInProgress(id, function(err, doc){
+        if(err){
+            res.send("Unable to review essay.  This essay may already be claimed by another reviewer or taken down by the uploader");
+        }else{
+            //provide temporary permissions to the user
+            drive.permissions.insert({
+                    'fileId': fileId,
+                    'resource': {
+                        "role": "reader",
+                        "type": "anyone",   //can change to a specific user
+                        "additionalRoles": [
+                            "commenter"
+                        ]
+                    }
+                }, function (err, resp, body) {
+                    if (err) {
+                        // Handle error
+                        console.log(err);
+                    }
+                    else {
+                        res.redirect(reviewLink); //view file
+
+                        //delete permissions
+                        // drive.permissions.delete({
+                        //     'fileId': fileId,
+                        //     'permissionId': 'anyone'
+                        // })
+                    }
+                }
+            );
         }
-    );
+    });
+
 });
 
 
@@ -146,10 +156,11 @@ router.get("/acceptReview", function(req, res, next){
 
 //AJAX endpoint for get reviewable essays for table
 router.post("/getSearchResults", function(req, res, next) {
-    Essay.getReviewableEssaysByTopic(function(err, reviewableEssays){
+    Essay.getReviewableEssaysByTopic(req.user._id, function(err, reviewableEssays){
         var essays = [];
         reviewableEssays.forEach(function(essay) {
             essays.push({
+                id: essay._id,
                 fileId: essay.fileId,
                 title: essay.title,
                 prompt: essay.prompt,
@@ -164,9 +175,24 @@ router.post("/getSearchResults", function(req, res, next) {
                 rewardAmt: essay.rewardAmt, //TODO: calc reward amount w formula
                 wordCount: essay.wordCount
             })
-        })
+        });
+
+        //sends essays to client
         res.send(essays);
     });
 });
+
+router.post("/submitReview", function(req, res, next) {
+    var id = req.query.id;
+    Essay.markEssayReviewed(id, function(err, doc){
+        if(err){
+            //handle
+        }else{
+            //tell client its all good
+        }
+    });
+
+});
+
 
 module.exports = router;

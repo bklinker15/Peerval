@@ -13,7 +13,6 @@ var EssaySchema = mongoose.Schema({
     priority: Number,
     reviewerId: String,
     uploadDate: Date,
-
     dueDate: Date,
     prompt: String,
     pageLength: Number,
@@ -31,6 +30,16 @@ module.exports.getEssayById = function(id, callback){
     Essay.findById(id, callback);
 };
 
-module.exports.getReviewableEssaysByTopic = function(callback){
-    Essay.find({status: "Not_Reviewed"}, callback);
+module.exports.getReviewableEssaysByTopic = function(user_id, callback){
+    Essay.find({status: "Not_Reviewed", authorId: {$ne: user_id}}, callback);
+};
+
+module.exports.markEssayInProgress = function(essay_id, callback){
+    var query = {'_id': essay_id};
+    Essay.findOneAndUpdate(query, {status: "In_Review"}, {upsert: false}, callback);
+};
+
+module.exports.markEssayReviewed = function(essay_id, callback){
+    var query = {'_id': essay_id};
+    Essay.findOneAndUpdate(query, {status: "Reviewed"}, {upsert: false}, callback);
 };
