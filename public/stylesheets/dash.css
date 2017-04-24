@@ -16,6 +16,7 @@
     background-size: cover;
     background-repeat: no-repeat;
     outline: none;
+    cursor:pointer;
 }
 #upload-btn:hover{
     border: 0.5px solid #ffffff;
@@ -42,6 +43,7 @@
     width: 80%;
     text-align: left;
     background: transparent;
+    cursor:pointer;
 }
 
 .side-div{
@@ -94,15 +96,14 @@
     padding-left: 20px;
     padding-right: 20px;
     padding-bottom: 3px;
-    /*background-color: #375D9D;*/
     background-color: #D85C72;
     color: #ffffff;
     border-top-left-radius: 13px;
     border-top-right-radius: 13px;
     font-family: 'Quicksand', sans-serif;
     z-index: 1;
-    /*border: 1px solid white;*/
     border-bottom: 0px;
+    cursor:pointer;
 }
 
 .highlight{
@@ -112,9 +113,6 @@
 
     padding-left: 25px;
     padding-right: 25px;
-    /*height: 40px;*/
-    /*position: relative;*/
-    /*bottom: 10px;*/
 }
 
 .tab-link:hover{
@@ -149,6 +147,7 @@
     margin-left: 2px;
     margin-top: 1px;
     font-family: 'Quicksand', sans-serif;
+    cursor:pointer;
 }
 .sort-buttons:hover{
     border: #ff8189;
@@ -206,6 +205,7 @@
     border-radius: 10px;
     height: 35px;
     outline: none;
+    cursor:pointer;
 }
 
 .rating-button{
@@ -217,6 +217,7 @@
     border-radius: 10px;
     height: 35px;
     outline: none;
+    cursor:pointer;
 }
 
 label{
@@ -252,6 +253,7 @@ label{
 
     width: 150px;
     padding: 3px;
+    cursor:pointer;
 }
 #chosen-file-name{
     margin-top: 2px;
@@ -316,22 +318,43 @@ label{
     height: 125px;
     overflow: hidden;
     position: relative;
+    padding-left: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
 }
 
+.review-result h3{
+    margin-top: 0px;
+    margin-bottom: 0px;
+    color: #D85C72;
+    font-weight: bold;
+    font-family: Quicksand;
+}
 #results-container p{
     color: #a9a9a9;
     width: 60%;
 }
 
-.side-buttons{
+.reviewer_side_buttons_div{
     position: absolute;
     right: 0;
-    top: 0;
+    top: 5px;
     bottom: 0;
     align-items: center;
     text-align: center;
     padding-top: 2px;
     font-size: 12px;
+    padding-right: 30px;
+}
+.reviewer_side_button{
+    background: #375D9D;
+    outline: none;
+    color: #ffffff;
+    padding: 5px;
+    margin-top: 5px;
+    border: none;
+    border-radius: 10px;
+    cursor:pointer;
 }
 .seeMore-button{
     position: absolute;
@@ -339,15 +362,17 @@ label{
 }
 
 .reward-button{
-    background: #1ce677;
+    background: white;
+    color: #147d57;
     -webkit-border-radius: 10;
     -moz-border-radius: 10;
-    border: none;
+    border: #375D9D 2px solid;
     border-radius: 10px;
-    color: #ffffff;
     font-size: 16px;
     padding: 7px 13px 7px 13px;
     text-decoration: none;
+    outline: none;
+    cursor:pointer;
 }
 
 /*.accept-button{*/

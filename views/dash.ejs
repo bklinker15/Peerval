@@ -21,6 +21,10 @@
                 url: "/files/getSearchResults",
                 success: function(result){
                     var container = document.getElementById("results-container");
+
+                    var percentage = result.length/4 * 80;
+                    document.getElementById("tab-section").style.height =  percentage<100 ? 100 : percentage + "%";
+
                     result.forEach(function(essay) {
                         reviewableEssays.push(essay);
 
@@ -28,11 +32,13 @@
                         div.innerHTML = ""
                         + "<div class='review-result'> "
                         + "    <h3>" + essay.title + "</h3>"
-                        + "    <p>" + essay.prompt + "</p>"
-                        + "    <div class='side-buttons'>"
-                            + "        <button class='reward-button'>" + essay.rewardAmt + "</button><br>"
-                            + "        <button onclick='openLinkNewWindow(\"" + "/files/acceptReview?fileId=" + essay.fileId + "&id=" + essay.id + "\")' class='side-button'>Accept Review</button><br>"
-                            + "        <button onclick='submitReview(\"" + essay.id + "\")' class='side-button'>Submit Review</button><br>"
+                        + "Topic:&nbsp&nbsp"+essay.topic +"<br>"
+                        + "Prompt:&nbsp&nbsp"+ essay.prompt +"<br>"
+                        + "Page Length:&nbsp&nbsp"+ essay.pageLength
+                        + "    <div class='reviewer_side_buttons_div'>"
+                            + "        <button class='reward-button'>$" + essay.rewardAmt + "</button><br>"
+                            + "        <button onclick='openLinkNewWindow(\"" + "/files/acceptReview?fileId=" + essay.fileId + "&id=" + essay.id + "\")' class='reviewer_side_button'>Accept Review</button><br>"
+                            + "        <button onclick='submitReview(\"" + essay.id + "\")' class='reviewer_side_button'>Submit Review</button><br>"
                         + "    </div>"
                         +"</div> ";
 
