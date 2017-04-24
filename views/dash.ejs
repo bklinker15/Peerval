@@ -27,14 +27,21 @@
 
                     result.forEach(function(essay) {
                         reviewableEssays.push(essay);
-
+                        var dueDate = new Date(essay.dueDate);
                         var div = document.createElement("div");
                         div.innerHTML = ""
                         + "<div class='review-result'> "
-                        + "    <h3>" + essay.title + "</h3>"
-                        + "Topic:&nbsp&nbsp"+essay.topic +"<br>"
-                        + "Prompt:&nbsp&nbsp"+ essay.prompt +"<br>"
-                        + "Page Length:&nbsp&nbsp"+ essay.pageLength
+                            + "<div class='reviewer_tab_essay_info_1'>"
+                                + "<h3>" + essay.title + "</h3>"
+                                + "Topic:&nbsp&nbsp"+essay.topic +"<br>"
+                                + "Prompt:&nbsp&nbsp"+ essay.prompt +"<br>"
+                                + "Page Length:&nbsp&nbsp"+ essay.pageLength
+                            + "</div>"
+                            + "<div class='reviewer_tab_essay_info_2'>"
+                                + "Priority:&nbsp&nbsp"+essay.priority +"<br>"
+                                + "Due Date:&nbsp&nbsp"+dueDate.toDateString().substring(3) + "<br>"
+                                + "Course:&nbsp&nbsp"+essay.classPrefix+"&nbsp&nbsp"+essay.classLevel +"<br>"
+                            + "</div>"
                         + "    <div class='reviewer_side_buttons_div'>"
                             + "        <button class='reward-button'>$" + essay.rewardAmt + "</button><br>"
                             + "        <button onclick='openLinkNewWindow(\"" + "/files/acceptReview?fileId=" + essay.fileId + "&id=" + essay.id + "\")' class='reviewer_side_button'>Accept Review</button><br>"
