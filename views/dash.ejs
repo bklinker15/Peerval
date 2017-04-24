@@ -3,24 +3,66 @@
 <head>
     <%include ../partials/head%>
 
+    <script
+            src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
     <link rel='stylesheet' href='/stylesheets/dash.css' />
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
     <script>
-        function getSearchResults(filters) {
-            var xhttp = new XMLHttpRequest();
-            var request = "/files/getEssayResults?reviewer=" + user._id;
-            for(var i = 0; i < Object.keys(filters).length; i++){
-                
-            }
+        var reviewableEssays = [];
 
-            xhttp.open("POST", "/files/getEssayResults?" + titleKey + "=" +
-                title + "&" + ratingKey + "=" + rating, false);
-            xhttp.send();
+        getSearchResults();
 
-            if (xhttp.responseText.trim().length > 0) {
-                //add essays to table
-            }
+        function getSearchResults(){
+            $.ajax({
+                type: "POST",
+                url: "/files/getSearchResults",
+                success: function(result){
+                    var container = document.getElementById("results-container");
+                    result.forEach(function(essay) {
+                        reviewableEssays.push(essay);
+                        var div = document.createElement("div");
+                        div.classList.add("review-result");
+                        var title = document.createElement("h3");
+                        title.innerHTML = essay.title;
+                        div.appendChild(title);
+                        var prompt = document.createElement("p");
+                        prompt.innerHTML = essay.prompt;
+                        div.appendChild(prompt);
+                        var accept = document.createElement("button");
+                        accept.classList.add("side-button");
+                        accept.classList.add("accept-button");
+
+                        var buttonDiv = document.createElement("div");
+                        buttonDiv.classList.add("side-buttons");
+                        var reward = document.createElement("button");
+                        reward.classList.add("reward-button");
+                        reward.classList.add("side-button");
+                        var seeMore = document.createElement("button");
+                        seeMore.classList.add("side-button");
+                        reward.innerHTML = "$" + essay.rewardAmt;
+                        seeMore.innerHTML = "↓ See More"
+                        accept.innerHTML = "Accept Review";
+                        accept.onclick = function() { openLinkNewWindow('/files/acceptReview?fileId=' + essay.fileId)};
+
+                        buttonDiv.appendChild(reward);
+                        buttonDiv.appendChild(document.createElement("br"));
+                        buttonDiv.appendChild(accept);
+                        buttonDiv.appendChild(document.createElement("br"));
+                        buttonDiv.appendChild(seeMore)
+                        div.append(buttonDiv);
+                        div.appendChild(document.createElement("br"));
+
+                        container.appendChild(div);
+                    })
+                }
+            });
+        }
+
+        function openLinkNewWindow(link){
+            window.open(link, '_blank');
         }
 
     function openTab(updateSection, tabName) {
@@ -257,7 +299,16 @@
             <form action='/files/uploadFile' method='post' encType="multipart/form-data">
                 <h6>ESSAY </h6>
                 <label> Essay Name: </label> <input type="text" name="essayName"><br>
-                <label>Topic: </label>  <input type="text" name="topic"><br>
+                <label> Topic:</label><select name="topic"> <br />
+                    <option value="default" selected="selected"></option>
+                    <option value="engineering">Engineering</option>
+                    <option value="social-sciences">Social Sciences</option>
+                    <option value="business">Business</option>
+                    <option value="physical-sciences">Physical Sciences</option>
+                    <option value="music">Music</option>
+                    <option value="art">Art</option>
+                    <option value="cinematic-arts">Cinematic Arts</option>
+                </select><br />
                 <label>Page Length: </label> <input type="text" name="pageLength" style="width: 30px;"> <br>
                 <label>Prompt: </label> <input type="text" name="prompt"> <br>
                 <br>
@@ -293,16 +344,10 @@
                 </select> <br>
                 Page Length Min: <input style="width: 20px;"> <br>
                 Page Length Max <input style="width: 20px;"> <br>
+                <button name="apply-filter" onclick="getSearchResults()">Apply filter</button>
             </div>
-            <div id="results-container" style="position:absolute; left: 300px; top: 90px;">
-                <table>
-                    <th>
-                        <td></td>
-                        <td>Title</td>
-                        <td>Prompt</td>
-                    </th>
-                    <tr></tr>
-                </table>
+            <div id="results-container">
+
             </div>
         </div>
     </div>

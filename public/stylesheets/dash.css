@@ -51,8 +51,8 @@
 
 .side-div:hover{
     /*background-color: #375D9D;*/
-    background-color: #919191;
-    color: white;
+    background-color: white;
+    color: #D85C72;
 }
 
 .side-highlight{
@@ -118,8 +118,8 @@
 }
 
 .tab-link:hover{
-    background-color: #919191;
-    color: white;
+    background-color: white;
+    color: #FF8189;
 }
 
 .tab-link:focus{
@@ -278,5 +278,68 @@ label{
     /*left: 32vw;*/
     /*margin: auto;*/
 /*}*/
+#results-container {
+    font-family: Quicksand;
+    position: absolute;
+    left: 275px;
+    top: 90px;
+}
 
+.review-result{
+    width: 65vw;
+    border: 1px solid #ff8189;
+    right: 30px;
+    height: 125px;
+    overflow: hidden;
+    position: relative;
+}
 
+#results-container p{
+    color: #a9a9a9;
+    width: 60%;
+}
+
+.side-buttons{
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    align-items: center;
+    text-align: center;
+}
+.seeMore-button{
+    position: absolute;
+    bottom: 0;
+}
+
+.reward-button{
+    background: #1ce677;
+    background-image: -webkit-linear-gradient(top, #1ce677, #0ec75e);
+    background-image: -moz-linear-gradient(top, #1ce677, #0ec75e);
+    background-image: -ms-linear-gradient(top, #1ce677, #0ec75e);
+    background-image: -o-linear-gradient(top, #1ce677, #0ec75e);
+    background-image: linear-gradient(to bottom, #1ce677, #0ec75e);
+    -webkit-border-radius: 10;
+    -moz-border-radius: 10;
+    border: none;
+    border-radius: 10px;
+    color: #ffffff;
+    font-size: 16px;
+    padding: 7px 13px 7px 13px;
+    text-decoration: none;
+}
+
+.accept-button{
+    border-radius: 12px;
+    font-family: 'Quicksand', sans-serif;
+    color: #ffffff;
+    font-size: 18px;
+    background: #375d9d;
+    border: 1px solid #375d9d;
+    padding: 7px 35px 7px 35px;
+    text-decoration: none;
+}
+
+.accept-button:hover {
+    border: 1px solid #ff8189;
+}

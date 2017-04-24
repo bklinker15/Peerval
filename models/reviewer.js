@@ -16,6 +16,7 @@ var ReviewerSchema = mongoose.Schema({
         type: Number,
         default: 0
     },
+    subjects: [String],
     textReviews: [String],
     totalEarningsToDate: {
         type: Number,
