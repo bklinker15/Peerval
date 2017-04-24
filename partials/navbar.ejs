@@ -1,4 +1,3 @@
-<nav id="navbar">
     <script> //script for drop down menu
         /* When the user clicks on the button,
          toggle between hiding and showing the dropdown content */
@@ -23,6 +22,7 @@
     </script>
 
     <%if (login){%>
+    <nav id="navbar" style="position: relative">
         <div id="navbar-links">
             <a href="/dash"> <img src="/images/logo.png" alt="Could not load logo" style="width: 42px; height: 28px; position: relative; bottom: 5px"></a>
             <a href="/dash" id="brand"><img src="/images/brand.png" alt="Could not load image" style="width: 120px; height: 50px; position: relative; right: 40px; top: 8px;"></a>
@@ -35,9 +35,9 @@
                 <a href="/users/logout">Logout</a>
             </div>
         </div>
-        <%}else{%>
-
-            <div id="navbar-links" style="background-color: #ff8189;">
+    <%}else{%>
+    <nav id="navbar">
+        <div id="navbar-links" style="background-color: #ff8189;">
                 <a href="/" id="brand"><img src="/images/brand.png" alt="Could not load image" style="width: 130px; height: 60px;"></a>
                 <a class="link" href="#div1">How it Works</a>
                 <a class="link" href="/pricing">Pricing</a>
@@ -47,4 +47,4 @@
                 <a href="/users/login" class="btn">Login</a>
             </div>
         <%}%>
-</nav>
+    </nav>

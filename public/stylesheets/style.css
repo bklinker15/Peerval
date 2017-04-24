@@ -63,7 +63,7 @@ header{
 }
 
 .blue-btn {
-  border-radius: 12px;
+  border-radius: 18px;
   font-family: 'Quicksand', sans-serif;
   color: #ffffff;
   font-size: 18px;
@@ -87,6 +87,7 @@ header{
   color: #ff8189;
   border-radius: 13px;
   position: relative;
+  font-family: 'Quicksand', sans-serif;
 }
 /* Dropdown button on hover & focus */
 .dropbtn:hover, .dropbtn:focus {
