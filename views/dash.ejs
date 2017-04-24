@@ -108,7 +108,7 @@
         document.getElementById(sectionName+"_area").style.display = "block";
     }
 
-    //sort the files based on the sort method
+        //sort the files based on the sort method
     function sortSection(sortMethod) {
 
         var sortButtons = document.getElementsByClassName("sort-buttons");
@@ -173,7 +173,8 @@
             });
             showData();
         }
-        
+
+
         function showData() {
             document.getElementById("display-inprogress-essays").innerHTML = "";
 
@@ -190,7 +191,7 @@
                 document.getElementById("display-inprogress-essays").innerHTML += ""
                     + "<div class='essay-box' style='float: left;'> "
                     + "    <a href='/files/downloadFile?fileId="+ initData.inProgress[i].fileId  +"'>"
-                    + "    <img src='/images/essay_stockPhoto.png' height='200' width='230' style='border: black solid 1px;'>"
+                    + "    <img src='/images/essay_paper.png' height='200' width='230'>"
                     + "    </a>"
                     + "    <div class='essay-info-box'>"
                     + "        <h6>" + essayTitle + "</h6>"
@@ -207,22 +208,29 @@
             document.getElementById("display-reviewed-essays").innerHTML = "";
 
             for(var i =0; i < initData.reviewed.length; i++) {
-                var essayTitle = initData.reviewed[i].title.length > 24 ? initData.reviewed[i].title.substring(0, 20) + "..." : initData.reviewed[i].title;
+                var essayTitle = initData.reviewed[i].title.length > 24 ? initData.reviewed[i].title.substring(0, 24) + "..." : initData.reviewed[i].title;
                 var essayDate = new Date(initData.reviewed[i].date);
+                var downloadLink = '/files/downloadFile?fileId='+ initData.inProgress[i].fileId;
                 document.getElementById("display-reviewed-essays").innerHTML += ""
                     + "<div class='essay-box' style='float: left;'> "
-                    + "    <a href='/files/downloadFile?fileId="+ initData.reviewed[i].fileId  +"'>"
-                    + "    <img src='/images/essay_stockPhoto.png' height='200' width='230' style='border: black solid 1px;'>"
-                    + "    </a>"
+                    + "    <img src='/images/essay_paper.png' height='200' width='230'>"
                     + "    <div class='essay-info-box'>"
                     + "        <h6>" + essayTitle + "</h6>"
 //                    + initData.inProgress[i].subject + "<br>"
-                    + "Submitted "+essayDate.toDateString().substring(3) + "<br>"
-                    + initData.reviewed[i].status
-                    + "    </div> "
+                    + "         <img src='/images/icons/clock-grey.png'>"
+                    + "         <div style='display: inline-block; text-align:center; width: 100%; '>"
+                    + "             Submitted "+essayDate.toDateString().substring(3) + "<br>"
+                    +               status
+                    + "         </div>"
+                    +"     </div> "
+                    +"     <div>"
+                    +"          <button class='download-button' onclick='openLinkNewWindow(\""+downloadLink+"\")'> Download </button>"
+                    +"          <button class='rating-button'> Rate Reviewer </button>"
+                    + "    </div>"
                     + "</div >";
             }
         }
+
     }
     </script>
 
@@ -305,8 +313,8 @@
                 <br>
                 <h6>PAYMENT </h6>
                 <label>Priority: </label><br>
-                    <input type="radio" name="priority" value="1" checked>Normal<br>
-                    <input type="radio" name="priority" value="2">High<br>
+                    <input type="radio" name="priority" value="1" checked style="width:25px; height: 15px; ">Normal &nbsp;&nbsp;
+                    <input type="radio" name="priority" value="2" style="width:25px; height: 15px; ">High<br>
                 <label>Due Date: </label> <input type="date" name="date"> <br>
                 <label>Reward: </label> <input type="number" name="reward"> <br>
                 <br>

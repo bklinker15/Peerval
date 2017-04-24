@@ -43,6 +43,7 @@
     text-align: left;
     background: transparent;
 }
+
 .side-div{
     background-color: #FF8189;
     color: white;
@@ -50,9 +51,8 @@
 }
 
 .side-div:hover{
-    /*background-color: #375D9D;*/
-    background-color: white;
-    color: #D85C72;
+    background-color: #D85C72;
+    opacity: 0.5;
 }
 
 .side-highlight{
@@ -119,6 +119,7 @@
 
 .tab-link:hover{
     background-color: white;
+    opacity: 0.5;
     color: #FF8189;
 }
 
@@ -163,13 +164,14 @@
 }
 
 .essay-box{
-    padding-top: 15px;
+    padding-bottom: 25px;
     padding-right: 30px;
 }
 
 .essay-info-box{
-    margin-top: -7px;
-    border: black solid 1px;
+    margin-top: -10px;
+    border: #919191 solid 1px;
+    border-top: 0;
     font-size: 10px;
     text-align: center;
     padding-bottom: 10px;
@@ -195,6 +197,28 @@
     position: absolute;
 }
 
+.download-button{
+    margin-top: 10px;
+    width: 100%;
+    background-color: #375D9D;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    height: 35px;
+    outline: none;
+}
+
+.rating-button{
+    margin-top: 10px;
+    width: 100%;
+    background-color: #ff8189;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    height: 35px;
+    outline: none;
+}
+
 label{
     display: inline-block;
     float: left;
@@ -208,7 +232,7 @@ label{
 }
 #inner-left-box input{
     height: 23px;
-    margin-bottom: 3px;
+    margin-bottom: 4px;
     width: 200px;
 }
 
@@ -221,7 +245,7 @@ label{
 .choose-file-button {
     display: block;
     cursor: pointer;
-    background-color: #ff8189;
+    background-color: #375D9D;
     border-radius: 15px;
     color: white;
     text-align: center;
@@ -233,7 +257,7 @@ label{
     margin-top: 2px;
     margin-left: 5px;
     width: 150px;
-    color: #ff8189;
+    color: #375D9D;
 }
 #inner-left-box input[type="submit"]{
     width: 150px;
