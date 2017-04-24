@@ -280,7 +280,7 @@
         <h2>Upload an Essay</h2>
         <hr style="margin-top: -2px; border-width: 2px;">
         <div id="inner-left-box">
-            <form action='/files/uploadFile' method='post' encType="multipart/form-data">
+            <form id="upload-form" name="upload-form" action='/files/uploadFile' method='post' encType="multipart/form-data">
                 <label> Essay Name: </label> <input type="text" name="essayName"><br>
                 <label> Topic:</label><select name="topic"> <br />
                     <option value="default" selected="selected"></option>
@@ -293,8 +293,10 @@
                     <option value="cinematic-arts">Cinematic Arts</option>
                 </select><br />
                 <label>Page Length: </label> <input type="text" name="pageLength" style="width: 30px;"> <br>
-                <label>Prompt: </label> <input type="text" name="prompt"> <br>
-                <label>Priority: </label> <input type="number" name="priority"> <br>
+                <label>Prompt: </label> <textarea form="upload-form" rows=4 cols=35 name="prompt"></textarea> <br>
+                <label>Priority: <br>
+                <input type="radio" name="priority" value="1" checked>Normal<br>
+                <input type="radio" name="priority" value="2">High<br>
                 <label>Reward: </label> <input type="number" name="reward"> <br>
                 <label>Department: </label> <input type="text" name="classPrefix" placeholder="eg. WRIT"> <br>
                 <label>CourseID: </label> <input type="number" name="classNumber" placeholder="eg. 150"> <br>
@@ -319,7 +321,7 @@
                 </select> <br>
                 Page Length Min: <input style="width: 20px;"> <br>
                 Page Length Max <input style="width: 20px;"> <br>
-                <button name="apply-filter" onclick="getSearchResults()">Apply filter</button>
+                <button name="apply-filter" class="accept-button" onclick="getSearchResults()">Apply filter</button>
             </div>
             <div id="results-container">
 
