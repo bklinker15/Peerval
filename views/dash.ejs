@@ -108,12 +108,12 @@
             x[i].style.display = "none";
         }
 
-        var sidelinks = document.getElementsByClassName("side-link-button");
+        var sidelinks = document.getElementsByClassName("side-div");
         for(var k = 0; k < sidelinks.length; k++){
             sidelinks[k].className = sidelinks[k].className.replace(" side-highlight", "");
         }
 
-        document.getElementById(sectionName+"_button").className += " side-highlight";
+        document.getElementById(sectionName+"_div").className += " side-highlight";
         document.getElementById(sectionName+"_area").style.display = "block";
     }
 
@@ -193,8 +193,9 @@
 
             //add essay boxes
             for(var i =0; i < initData.inProgress.length; i++) {
-                var essayTitle = initData.inProgress[i].title.length > 24 ? initData.inProgress[i].title.substring(0, 20) + "..." : initData.inProgress[i].title;
+                var essayTitle = initData.inProgress[i].title.length > 24 ? initData.inProgress[i].title.substring(0, 24) + "..." : initData.inProgress[i].title;
                 var essayDate = new Date(initData.inProgress[i].date);
+                var status = initData.inProgress[i].status == 'Not_Reviewed' ? 'Unopened by Reviewer' : 'Open by Reviewer';
                 document.getElementById("display-inprogress-essays").innerHTML += ""
                     + "<div class='essay-box' style='float: left;'> "
                     + "    <a href='/files/downloadFile?fileId="+ initData.inProgress[i].fileId  +"'>"
@@ -203,9 +204,12 @@
                     + "    <div class='essay-info-box'>"
                     + "        <h6>" + essayTitle + "</h6>"
 //                    + initData.inProgress[i].subject + "<br>"
-                    + "Submitted "+essayDate.toDateString().substring(3) + "<br>"
-                    + initData.inProgress[i].status
-                    + "    </div> "
+                    + "         <img src='/images/icons/clock-grey.png'>"
+                    + "         <div style='display: inline-block; text-align:center; width: 100%; '>"
+                    + "             Submitted "+essayDate.toDateString().substring(3) + "<br>"
+                    +               status
+                    + "         </div>"
+                    +"     </div> "
                     + "</div >";
             }
 
@@ -240,9 +244,16 @@
 <div id="tab-side">
     <button type="image" class="blue-btn" id="upload-btn" onclick="openTab(true, 'upload')"></button> <br>
     <div id="side-links">
-        &nbsp; ESSAYS
-        <button id="inProgress_button" class="side-link-button side-highlight" onclick="essaySection('inProgress')"> Essays in progress </button>
-        <button id="reviewed_button" class="side-link-button " onclick="essaySection('reviewed')"> Reviewed Essays </button>
+        &nbsp; ESSAYS<br>
+        <div id="inProgress_div" class="side-div side-highlight">
+            <img src='/images/icons/check.png' class="side-img">
+            <button id="inProgress_button" class="side-link-button" onclick="essaySection('inProgress')"> Essays in progress </button>
+        </div>
+        <div id="reviewed_div" class="side-div">
+            <img src='/images/icons/clock-white.png' class="side-img">
+            <button id="reviewed_button" class="side-link-button " onclick="essaySection('reviewed')"> Reviewed Essays </button>
+        </div>
+
     </div>
 </div>
 
@@ -255,7 +266,7 @@
         <%}%>
     </div>
 
-    <div id="uploaded" class="w3-container tab-area ">
+    <div id="uploaded" class="tab-area ">
         <div id = "sort-buttons-div">
             <button id="name_button" class="sort-buttons" onclick="sortSection('name')"> Name</button>
             <button id="date_button" class="sort-buttons" onclick="sortSection('date')"> Date</button>
@@ -275,12 +286,18 @@
         </div>
 
     </div>
-
-    <div id="upload" class="w3-container tab-area " style="display:none">
-        <h2>Upload an Essay</h2>
-        <hr style="margin-top: -2px; border-width: 2px;">
+    <script>
+        function changeFilename(val) {
+            var res = val.split('\\');
+            document.getElementById('chosen-file-name').innerHTML = res[res.length-1];
+        }
+    </script>
+    <div id="upload" class="tab-area " style="display:none">
+        <h1>Upload an Essay</h1>
+        <hr style="margin-top: -10px; border-width: 2px;">
         <div id="inner-left-box">
             <form id="upload-form" name="upload-form" action='/files/uploadFile' method='post' encType="multipart/form-data">
+                <h6>ESSAY </h6>
                 <label> Essay Name: </label> <input type="text" name="essayName"><br>
                 <label> Topic:</label><select name="topic"> <br />
                     <option value="default" selected="selected"></option>
@@ -292,25 +309,33 @@
                     <option value="art">Art</option>
                     <option value="cinematic-arts">Cinematic Arts</option>
                 </select><br />
-                <label>Page Length: </label> <input type="text" name="pageLength" style="width: 30px;"> <br>
                 <label>Prompt: </label> <textarea form="upload-form" rows=4 cols=35 name="prompt"></textarea> <br>
-                <label>Priority: <br>
-                <input type="radio" name="priority" value="1" checked>Normal<br>
-                <input type="radio" name="priority" value="2">High<br>
+                <label>Page Length: </label> <input type="text" name="pageLength" style="width: 30px;"> <br>
+                <br>
+                <h6>PAYMENT </h6>
+                <label>Priority: </label><br>
+                    <input type="radio" name="priority" value="1" checked>Normal<br>
+                    <input type="radio" name="priority" value="2">High<br>
+                <label>Due Date: </label> <input type="date" name="date"> <br>
                 <label>Reward: </label> <input type="number" name="reward"> <br>
+                <br>
+                <h6>CLASS </h6>
                 <label>Department: </label> <input type="text" name="classPrefix" placeholder="eg. WRIT"> <br>
                 <label>CourseID: </label> <input type="number" name="classNumber" placeholder="eg. 150"> <br>
-                <label>Due Date: </label> <input type="date" name="date"> <br>
+                <br>
+                <label for="file" class="choose-file-button"> Choose File</label>
+                <input type="file" name="file" id= "file" accept="" onchange="changeFilename(this.value)">
+                <label id="chosen-file-name">No File Chosen</label>
+                <br><br>
+                <input type="submit" class="blue-btn" value="Upload File" id="upload-file-button">
 
-                <input type="file" name="file" accept="">
-                <input type="submit" class="blue-btn" value="Upload">
             </form>
         </div>
     </div>
 
 
     <%if (user.isReviewer){%>
-    <div id="review" class="w3-container tab-area " style="display:none">
+    <div id="review" class="tab-area " style="display:none">
         <h1>Review Center</h1>
         <div id="search-container">
             <div id="search-side-container" style="width: 200px;">
