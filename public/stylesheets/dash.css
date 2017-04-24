@@ -236,7 +236,11 @@ label{
     margin-bottom: 4px;
     width: 200px;
 }
-
+#inner-left-box select{
+    height: 23px;
+    margin-bottom: 4px;
+    width: 200px;
+}
 #inner-left-box input[type="file"]{
     display: none;
     position: absolute;
