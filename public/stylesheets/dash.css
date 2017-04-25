@@ -351,7 +351,7 @@ label{
     float: left;
     max-width: 500px;
     max-height: 125px;
-    overflow: auto;
+    overflow: hidden;
 }
 
 .reviewer_side_buttons_div{
