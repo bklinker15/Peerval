@@ -22,8 +22,8 @@
                 success: function(result){
                     var container = document.getElementById("results-container");
 
-                    var percentage = result.length/4 * 80;
-                    document.getElementById("tab-section").style.height =  percentage<100 ? 100 : percentage + "%";
+                    var percentage = result.length/2 * 80;
+                    document.getElementsByClassName("tab-area").item(2).style.height =  percentage<100 ? 100 : percentage + "%";
 
                     result.forEach(function(essay) {
                         reviewableEssays.push(essay);
@@ -33,14 +33,14 @@
                         + "<div class='review-result'> "
                             + "<div class='reviewer_tab_essay_info_1'>"
                                 + "<h3>" + essay.title + "</h3>"
-                                + "Topic:&nbsp&nbsp"+essay.topic +"<br>"
-                                + "Prompt:&nbsp&nbsp"+ essay.prompt +"<br>"
-                                + "Page Length:&nbsp&nbsp"+ essay.pageLength
-                            + "</div>"
-                            + "<div class='reviewer_tab_essay_info_2'>"
                                 + "Priority:&nbsp&nbsp"+essay.priority +"<br>"
                                 + "Due Date:&nbsp&nbsp"+dueDate.toDateString().substring(3) + "<br>"
                                 + "Course:&nbsp&nbsp"+essay.classPrefix+"&nbsp&nbsp"+essay.classLevel +"<br>"
+                                + "Page Length:&nbsp&nbsp"+ essay.pageLength
+                            + "</div>"
+                            + "<div class='reviewer_tab_essay_info_2'>"
+                                + "Topic:&nbsp&nbsp"+essay.topic +"<br>"
+                                + "Prompt:&nbsp&nbsp"+ essay.prompt +"<br>"
                             + "</div>"
                         + "    <div class='reviewer_side_buttons_div'>"
                             + "        <button class='reward-button'>$" + essay.rewardAmt + "</button><br>"
@@ -349,7 +349,8 @@
         <h1>Review Center</h1>
         <div id="search-container">
             <div id="search-side-container" style="width: 200px;">
-                <p>Search Filters</p> <br>
+                <h4>Search Filters </h4>
+                <hr>
                 Topic: <select name="topic" title="Topic">
                     <option value="Engineering">Engineering</option>
                     <option value="Social Sciences">Social Sciences</option>
