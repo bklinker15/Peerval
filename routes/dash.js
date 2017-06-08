@@ -69,7 +69,8 @@ router.get('/', ensureAuthenticated, function(req, res, next) {
                     //     }
                     // }
                         //add to different arrays based on status
-                        if(essay.status == 'Not_Reviewed' || essay.status == "In_Review") {
+                    if(essay != null) {
+                        if (essay.status == 'Not_Reviewed' || essay.status == "In_Review") {
                             essays.inProgress.push({
                                 title: essay.title,
                                 fileId: essay.fileId,
@@ -78,7 +79,7 @@ router.get('/', ensureAuthenticated, function(req, res, next) {
                                 subject: essay.subject
                             });
                         }
-                        else{  //reviewed
+                        else {  //reviewed
                             essays.reviewed.push({
                                 title: essay.title,
                                 fileId: essay.fileId,
@@ -87,6 +88,7 @@ router.get('/', ensureAuthenticated, function(req, res, next) {
                                 subject: essay.subject
                             });
                         }
+                    }
                         ctr++;
 
                     //add essay object to the array
